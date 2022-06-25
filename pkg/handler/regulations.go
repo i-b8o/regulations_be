@@ -25,7 +25,7 @@ func (h *Handler) regulation(c *gin.Context) {
 	input := &pb.CreateUserRequest{}
 	err := c.BindJSON(&input)
 	if err != nil {
-		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		// newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
 	_, err = mail.ParseAddress(input.Email)

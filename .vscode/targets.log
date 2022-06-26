@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Jun 26 10:55:53 2022
+# Make data base, printed on Sun Jun 26 21:40:12 2022
 
 # Variables
 
@@ -23,7 +23,7 @@ SSH_AGENT_LAUNCHER = gnome-keyring
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-6c07644a-8248-43a4-b66a-584d96df6867.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-2fc3c702-3483-4e53-a602-5ab8cfbd925a.sock
 # environment
 LC_NAME = ru_RU.UTF-8
 # environment
@@ -61,7 +61,7 @@ VSCODE_LOG_STACK = false
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = /home/ivan/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
+VSCODE_CODE_CACHE_PATH = /home/ivan/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
 # environment
 LANG = C
 # environment
@@ -101,13 +101,13 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 3151
+VSCODE_PID = 247844
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/ivan-home:@/tmp/.ICE-unix/2007,unix/ivan-home:/tmp/.ICE-unix/2007
+SESSION_MANAGER = local/ivan-home:@/tmp/.ICE-unix/2823,unix/ivan-home:/tmp/.ICE-unix/2823
 # automatic
 *F = $(notdir $*)
 # environment
@@ -147,7 +147,7 @@ LC_MONETARY = ru_RU.UTF-8
 # environment
 LC_TIME = ru_RU.UTF-8
 # environment
-INVOCATION_ID = a640520af515487b8142dc56280bf2af
+INVOCATION_ID = 73d0c3b902d24ad3b900de707e8d31ba
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
@@ -189,11 +189,11 @@ GTK_MODULES = gail:atk-bridge
 # default
 MAKE_VERSION := 4.3
 # environment
-MANAGERPID = 1776
+MANAGERPID = 2590
 # environment
 LC_MEASUREMENT = ru_RU.UTF-8
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3151
+GIO_LAUNCHED_DESKTOP_FILE_PID = 247844
 # environment
 _ = /usr/share/code/code
 # environment
@@ -205,7 +205,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 GOOGLE_APPLICATION_CREDENTIALS = /home/ivan-bogach/adminsdk.json
 # environment
-JOURNAL_STREAM = 8:40005
+JOURNAL_STREAM = 8:78954
 # environment
 GOMODCACHE = /home/ivan/go/pkg/mod
 # environment
@@ -219,7 +219,7 @@ QT_IM_MODULE = ibus
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-168462f3-1.67.2-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-168462f3-1.68.1-main.sock
 # environment
 IM_CONFIG_PHASE = 1
 # environment
@@ -249,9 +249,9 @@ LC_IDENTIFICATION = ru_RU.UTF-8
 
 # Directories
 
-# . (device 2050, inode 12329123): 12 files, no impossibilities.
+# . (device 2050, inode 12329123): 13 files, no impossibilities.
 
-# 12 files, no impossibilities in 1 directories.
+# 13 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -272,6 +272,7 @@ git:
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 2):
 	git add .
+ 
 	git commit -a -m "$m"
 	git push -u origin master
 
@@ -280,7 +281,6 @@ git:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 
 # Not a target:
 all:
@@ -297,12 +297,12 @@ all:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 18 / storage = 130 B / avg = 7 B
-# current buf: size = 8162 B / used = 130 B / count = 18 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 19 / storage = 137 B / avg = 7 B
+# current buf: size = 8162 B / used = 137 B / count = 19 / avg = 7 B
 
-# strcache performance: lookups = 23 / hit rate = 21%
+# strcache performance: lookups = 24 / hit rate = 20%
 # hash-table stats:
-# Load=18/8192=0%, Rehash=0, Collisions=0/23=0%
-# Finished Make data base on Sun Jun 26 10:55:53 2022
+# Load=19/8192=0%, Rehash=0, Collisions=0/24=0%
+# Finished Make data base on Sun Jun 26 21:40:12 2022
 
  

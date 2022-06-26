@@ -7,6 +7,7 @@ import (
 	"syscall"
 
 	"github.com/i-b8o/regulations_be"
+	"github.com/i-b8o/regulations_be/pkg/handler"
 	"github.com/sirupsen/logrus"
 )
 
@@ -23,6 +24,8 @@ import (
 
 func main() {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
+
+	handlers := handler.NewHandler()
 
 	// init server instance
 	srv := new(regulations_be.Server)

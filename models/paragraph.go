@@ -1,8 +1,8 @@
 package models
 
 type Paragraph struct {
-	Chapter    string           `json:"chapter"`
+	Id         int              `json:"id"`
 	Text       []string         `json:"text"`
-	EditedText []string         `json:"editedText"`
-	Tables     []ParagraphTable `json:"tables"`
+	EditedText []string         `json:"editedText,omitempty"`
+	Tables     []ParagraphTable `json:"tables,omitempty"`
 }

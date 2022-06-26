@@ -24,7 +24,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	// Create groups
 	auth := router.Group("/regulations")
 	{
-		auth.POST("/:abbreviation", h.regulation)
+		auth.GET("/:abbreviation", h.getDoc)
 
 	}
 

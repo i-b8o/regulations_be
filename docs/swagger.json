@@ -1,0 +1,161 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API Server for Regulations",
+        "title": "Regulations API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "188.93.210.165:8080",
+    "basePath": "/",
+    "paths": {
+        "/regulations/{abbreviation}": {
+            "get": {
+                "description": "return regulation doc",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "getDoc"
+                ],
+                "summary": "get doc",
+                "operationId": "get-doc",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Regulation Abbreviation",
+                        "name": "abbreviation",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Doc"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handler.errorResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/handler.errorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handler.errorResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/handler.errorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "handler.errorResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Chapter": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "num": {
+                    "type": "string"
+                },
+                "paragraphs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Paragraph"
+                    }
+                }
+            }
+        },
+        "models.Doc": {
+            "type": "object",
+            "properties": {
+                "abbreviation": {
+                    "type": "string"
+                },
+                "chapters": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Chapter"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Paragraph": {
+            "type": "object",
+            "properties": {
+                "chapter": {
+                    "type": "string"
+                },
+                "editedText": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "tables": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ParagraphTable"
+                    }
+                },
+                "text": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "models.ParagraphTable": {
+            "type": "object",
+            "properties": {
+                "img": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "num": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

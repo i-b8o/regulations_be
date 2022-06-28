@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"prod_serv/internal/app"
 	"prod_serv/internal/config"
 	"prod_serv/pkg/logging"
 	// "github.com/i-b8o/regulations_be"

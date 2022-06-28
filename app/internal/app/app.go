@@ -19,6 +19,7 @@ func NewApp(config *config.Config, logger *logging.Logger) (App, error) {
 	router := httprouter.New()
 
 	logger.Println("swagger docs initializing")
+	// hosting swagger specification
 	router.Handler(http.MethodGet, "/swagger", http.RedirectHandler("swagger/index.html", http.StatusMovedPermanently))
 	router.Handler(http.MethodGet, "/swagger/*any", httpSwagger.WrapHandler)
 	return App{config: config, logger: logger}, nil

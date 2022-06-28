@@ -5,6 +5,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"os"
 	"path"
 	"runtime"
 
@@ -71,11 +72,19 @@ func Init(level string) {
 	l.Formatter = &logrus.TextFormatter{
 		CallerPrettyfier: func(f *runtime.Frame) (function string, file string) {
 			fileName := path.Base(f.File)
-			return fmt.Sprintf("%s:%s", fileName, f.Line), fmt.Sprintf("%s()", f.Function)
+			return fmt.Sprintf("%s:%d", fileName, f.Line), fmt.Sprintf("%s()", f.Function)
 		},
 		DisableColors: false,
 		FullTimestamp: true,
 	}
 
+	// Send all logs to nowhere by default
 	l.SetOutput(ioutil.Discard)
+	// Send all logs to Stdout
+	l.AddHook(&writerHook{Writer: []io.Writer{os.Stdout}, LogLevels: logrus.AllLevels})
+
+	// set the logger level
+	l.SetLevel(logrusLevel)
+
+	e = logrus.NewEntry(l)
 }

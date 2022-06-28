@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"prod_serv/internal/config"
+	"prod_serv/pkg/logging"
 	// "github.com/i-b8o/regulations_be"
 	// "github.com/i-b8o/regulations_be/pkg/handler"
 	// "github.com/sirupsen/logrus"
@@ -23,6 +24,12 @@ func main() {
 	log.Print("config initializing")
 	cfg := config.GetConfig()
 	log.Print("logger initializing")
+	logger := logging.GetLogger()
+
+	app, err := app.NewApp(cfg, logger)
+	if err != nil {
+		logger.Fatal(err)
+	}
 	// logrus.SetFormatter(new(logrus.JSONFormatter))
 
 	// handlers := handler.NewHandler()

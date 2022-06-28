@@ -1,5 +1,5 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/kvo/go/src/github.com/i-b8o/regulations_be'
+make: Entering directory '/home/ivan/go/src/github.com/i-b8o/regulations_be'
 golangci-lint run
-make: Leaving directory '/home/kvo/go/src/github.com/i-b8o/regulations_be'
+make: Leaving directory '/home/ivan/go/src/github.com/i-b8o/regulations_be'
  

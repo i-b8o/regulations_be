@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+
 	"prod_serv/internal/app"
 	"prod_serv/internal/config"
 	"prod_serv/pkg/logging"
@@ -25,12 +26,17 @@ func main() {
 	log.Print("config initializing")
 	cfg := config.GetConfig()
 	log.Print("logger initializing")
+	logging.Init(cfg.AppConfig.LogLevel)
 	logger := logging.GetLogger()
 
-	app, err := app.NewApp(cfg, logger)
+	a, err := app.NewApp(cfg, logger)
 	if err != nil {
 		logger.Fatal(err)
 	}
+
+	logger.Println("Running Application")
+
+	a.Run()
 	// logrus.SetFormatter(new(logrus.JSONFormatter))
 
 	// handlers := handler.NewHandler()

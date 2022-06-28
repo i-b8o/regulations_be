@@ -3,8 +3,10 @@ package logging
 import (
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"path"
+	"runtime"
 
 	"github.com/sirupsen/logrus"
 )
@@ -18,10 +20,12 @@ type writerHook struct {
 // Fire will be called when some logging function is called with current hook
 // It will format log entry to string and write it to appropriate writer
 func (hook *writerHook) Fire(entry *logrus.Entry) error {
+	// format log entry to string
 	line, err := entry.String()
 	if err != nil {
 		log.Fatal(err)
 	}
+	// write it to all writers
 	for _, w := range hook.Writer {
 		_, err = w.Write([]byte(line))
 	}
@@ -52,17 +56,26 @@ func (l *Logger) LWithFields(fields map[string]interface{}) *Logger {
 }
 
 func Init(level string) {
+	// take a string level and returns the Logrus log level constant.
 	logrusLevel, err := logrus.ParseLevel(level)
 	if err != nil {
-	  log.Fatalln(err)
+		log.Fatalln(err)
 	}
 
+	// Creates a new logger
 	l := logrus.New()
+	// Set a ReportCaller field
 	l.SetReportCaller(true)
+
+	// format log into text
 	l.Formatter = &logrus.TextFormatter{
 		CallerPrettyfier: func(f *runtime.Frame) (function string, file string) {
 			fileName := path.Base(f.File)
-			return fmt.Sprintf("%s:", f.line)
-		}},
+			return fmt.Sprintf("%s:%s", fileName, f.Line), fmt.Sprintf("%s()", f.Function)
+		},
+		DisableColors: false,
+		FullTimestamp: true,
 	}
+
+	l.SetOutput(ioutil.Discard)
 }

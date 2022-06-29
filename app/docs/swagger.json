@@ -1,0 +1,36 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API Server for Regulations",
+        "title": "Regulations API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "188.93.210.165:8080",
+    "basePath": "/",
+    "paths": {
+        "/api/heartbeat": {
+            "get": {
+                "tags": [
+                    "metric"
+                ],
+                "summary": "Heartbeat metric",
+                "responses": {
+                    "204": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": ""
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

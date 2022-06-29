@@ -12,6 +12,7 @@ import (
 
 	"time"
 
+	_ "prod_serv/docs"
 	"prod_serv/internal/config"
 	"prod_serv/pkg/logging"
 	"prod_serv/pkg/metric"
@@ -82,9 +83,9 @@ func (a *App) startHTTP() {
 	// create a new Cors handler
 	c := cors.New(cors.Options{
 		AllowedMethods:     []string{http.MethodGet, http.MethodPost},
-		AllowedOrigins:     []string{"http://localhost:3000", "http://localhost:8080"},
+		AllowedOrigins:     []string{"http://localhost:10000"},
 		AllowCredentials:   true,
-		AllowedHeaders:     []string{"Authorization", "Location", "Charset", "Access-Control-Allow_Origin", "Content-Type"},
+		AllowedHeaders:     []string{"Content-Type"},
 		OptionsPassthrough: true,
 		ExposedHeaders:     []string{"Access-Token", "Refresh-Token", "Location", "Authorization", "Content-Disposition"},
 		Debug:              false,

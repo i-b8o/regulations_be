@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jun 28 21:16:44 2022
+# Make data base, printed on Wed Jun 29 20:12:33 2022
 
 # Variables
 
@@ -23,7 +23,7 @@ SSH_AGENT_LAUNCHER = gnome-keyring
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-aa3cf433-624b-45c7-9973-8399b2648293.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-96bd8e57-71f4-4df3-85fc-b8e9a5588309.sock
 # environment
 LC_NAME = ru_RU.UTF-8
 # environment
@@ -101,13 +101,13 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 46676
+VSCODE_PID = 7234
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/ivan-home:@/tmp/.ICE-unix/2028,unix/ivan-home:/tmp/.ICE-unix/2028
+SESSION_MANAGER = local/ivan-home:@/tmp/.ICE-unix/2051,unix/ivan-home:/tmp/.ICE-unix/2051
 # automatic
 *F = $(notdir $*)
 # environment
@@ -147,7 +147,7 @@ LC_MONETARY = ru_RU.UTF-8
 # environment
 LC_TIME = ru_RU.UTF-8
 # environment
-INVOCATION_ID = aa8fdc3e001742179936f6a73cf761f5
+INVOCATION_ID = 82424e07f9c7474399b1677cc48a1934
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
@@ -189,11 +189,11 @@ GTK_MODULES = gail:atk-bridge
 # default
 MAKE_VERSION := 4.3
 # environment
-MANAGERPID = 1796
+MANAGERPID = 1819
 # environment
 LC_MEASUREMENT = ru_RU.UTF-8
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 46676
+GIO_LAUNCHED_DESKTOP_FILE_PID = 7234
 # environment
 _ = /usr/share/code/code
 # environment
@@ -207,7 +207,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 GOOGLE_APPLICATION_CREDENTIALS = /home/ivan-bogach/adminsdk.json
 # environment
-JOURNAL_STREAM = 8:30481
+JOURNAL_STREAM = 8:36151
 # environment
 GOMODCACHE = /home/ivan/go/pkg/mod
 # environment
@@ -287,6 +287,7 @@ app/build/app:
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 9):
+ 
 	go build -o $(APP_BIN) ./app/cmd/app/main.go
 
 clean:
@@ -358,6 +359,6 @@ migrate.up:
 # strcache performance: lookups = 41 / hit rate = 36%
 # hash-table stats:
 # Load=26/8192=0%, Rehash=0, Collisions=0/41=0%
-# Finished Make data base on Tue Jun 28 21:16:44 2022
+# Finished Make data base on Wed Jun 29 20:12:33 2022
 
  

@@ -1,6 +1,4 @@
-BEGIN
-
-SET STATEMENT_TIMEOUtBEGIN;
+BEGIN;
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -15,7 +13,7 @@ SET SCHEMA 'public';
 
 -- EXTENSIONS --
 
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
+-- CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 -- TABLES --
 DROP TABLE IF EXISTS regulations;
@@ -34,14 +32,14 @@ CREATE TABLE chapters (
     chapter_num TEXT NOT NULL,
     created_at TIMESTAMPTZ,
     updated_at TIMESTAMPTZ,
-    PRIMARY KEY(chapter_id)
+    PRIMARY KEY(chapter_id),
     CONSTRAINT fk_regulation
         FOREIGN KEY(regulation_id) 
-	    REFERENCES chapters(regulation_id)
+	    REFERENCES regulations(regulation_id)
 );
 
 CREATE TABLE paragraphs (
-    paragraph_id NOT NULL,
+    paragraph_id INT NOT NULL,
     paragraph_class TEXT,
     paragraph_text TEXT NOT NULL,
     PRIMARY KEY(paragraph_id),

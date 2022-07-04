@@ -14,6 +14,8 @@ import (
 
 	_ "prod_serv/docs"
 	"prod_serv/internal/config"
+	"prod_serv/internal/domain/regulation/storage"
+	"prod_serv/pkg/client/postgresql"
 	"prod_serv/pkg/logging"
 	"prod_serv/pkg/metric"
 
@@ -41,6 +43,24 @@ func NewApp(config *config.Config, logger *logging.Logger) (App, error) {
 	logger.Println("heartbeat initializing")
 	metricHandler := metric.Handler{}
 	metricHandler.Register(router)
+
+	pgConfig := postgresql.NewPgConfig(
+		config.PostgreSQL.Username, config.PostgreSQL.Password,
+		config.PostgreSQL.Host, config.PostgreSQL.Port, config.PostgreSQL.Database,
+	)
+
+	pgClient, err := postgresql.NewClient(context.Background(), 5, time.Second*5, pgConfig)
+	if err != nil {
+		logger.Fatal(err)
+	}
+
+	regulationStorage := storage.NewRegulationStorage(pgClient, logger)
+	all, err := regulationStorage.All(context.Background())
+	if err != nil {
+		logger.Fatal(err)
+	}
+	logger.Fatal(all)
+
 	return App{cfg: config, logger: logger, router: router}, nil
 }
 

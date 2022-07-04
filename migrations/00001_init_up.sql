@@ -43,6 +43,6 @@ CREATE TABLE paragraphs (
 );
 
 -- DATA --
-
+INSERT INTO regulations (regulation_id, regulation_name, created_at) VALUES (1, 'Test', '1999-01-08 04:05:06');
 
 COMMIT;

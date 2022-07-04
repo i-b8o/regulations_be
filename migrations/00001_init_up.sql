@@ -22,15 +22,16 @@ DROP TABLE IF EXISTS regulations;
 
 CREATE TABLE regulations (
     regulation_id SERIAL PRIMARY KEY,
-    regulation_name TEXT NOT NULL
+    regulation_name TEXT NOT NULL,
+    created_at TIMESTAMPTZ,
+    updated_at TIMESTAMPTZ
 );
 
 CREATE TABLE chapters (
     chapter_id SERIAL PRIMARY KEY,
     chapter_name TEXT NOT NULL,
     chapter_num TEXT NOT NULL,
-    created_at TIMESTAMPTZ,
-    updated_at TIMESTAMPTZ,
+
     r_id integer REFERENCES regulations
 );
 

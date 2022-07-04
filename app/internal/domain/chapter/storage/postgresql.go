@@ -1,9 +1,6 @@
 package storage
 
 import (
-	"context"
-
-	"prod_serv/internal/domain/chapter/model"
 	"prod_serv/pkg/logging"
 
 	sq "github.com/Masterminds/squirrel"
@@ -22,14 +19,5 @@ func NewChapterStorage(client PostgreSQLClient, logger *logging.Logger) ChapterS
 
 const (
 	scheme = "public"
-	table  = "chapter"
+	table  = "chapters"
 )
-
-func (s *ChapterStorage) All(ctx context.Context) ([]model.Chapter, error) {
-	s.queryBuilder.Select("id").
-		Column("name").
-		Column("num").
-		Column("created_at").
-		Column("updated_at")
-	return nil, nil
-}

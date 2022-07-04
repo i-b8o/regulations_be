@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul  4 19:58:33 2022
+# Make data base, printed on Mon Jul  4 22:05:52 2022
 
 # Variables
 
@@ -123,7 +121,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2124
+GIO_LAUNCHED_DESKTOP_FILE_PID = 13429
 # automatic
 %F = $(notdir $%)
 # environment
@@ -183,7 +181,7 @@ APP_BIN = app/build/app
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-7be53338-ba2e-4d70-b98d-6c87f316a0f7.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-c57950e8-874d-401c-ad26-59ac6cd8423e.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -267,7 +265,7 @@ LC_ADDRESS = ru_RU.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 2124
+VSCODE_PID = 13429
 # variable set hash-table stats:
 # Load=128/1024=12%, Rehash=0, Collisions=22/155=14%
 
@@ -280,6 +278,9 @@ VSCODE_PID = 2124
 # . (device 2053, inode 138306): 13 files, no impossibilities.
 
 # 13 files, no impossibilities in 1 directories.
+
+ 
+make: *** No rule to make target 'all'.  Stop.
 
 # Implicit Rules
 
@@ -298,7 +299,6 @@ migrate.up:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 #  recipe to execute (from 'Makefile', line 24):
 	$(APP_BIN) migrate -seq up
 
@@ -385,6 +385,6 @@ lint:
 # strcache performance: lookups = 42 / hit rate = 35%
 # hash-table stats:
 # Load=27/8192=0%, Rehash=0, Collisions=1/42=2%
-# Finished Make data base on Mon Jul  4 19:58:33 2022
+# Finished Make data base on Mon Jul  4 22:05:52 2022
 
  

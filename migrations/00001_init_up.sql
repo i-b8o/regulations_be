@@ -16,36 +16,29 @@ SET SCHEMA 'public';
 -- CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 -- TABLES --
-DROP TABLE IF EXISTS regulations;
+DROP TABLE IF EXISTS paragraphs;
 DROP TABLE IF EXISTS chapters;
-DROP TABLE IF EXISTS paragraph;
+DROP TABLE IF EXISTS regulations;
 
 CREATE TABLE regulations (
-    regulation_id INT GENERATED ALWAYS AS IDENTITY,
-    regulation_name TEXT NOT NULL,
-    PRIMARY KEY(regulation_id)
+    regulation_id SERIAL PRIMARY KEY,
+    regulation_name TEXT NOT NULL
 );
 
 CREATE TABLE chapters (
-    chapter_id INT GENERATED ALWAYS AS IDENTITY,
+    chapter_id SERIAL PRIMARY KEY,
     chapter_name TEXT NOT NULL,
     chapter_num TEXT NOT NULL,
     created_at TIMESTAMPTZ,
     updated_at TIMESTAMPTZ,
-    PRIMARY KEY(chapter_id),
-    CONSTRAINT fk_regulation
-        FOREIGN KEY(regulation_id) 
-	    REFERENCES regulations(regulation_id)
+    r_id integer REFERENCES regulations
 );
 
 CREATE TABLE paragraphs (
-    paragraph_id INT NOT NULL,
+    paragraph_id INT NOT NULL PRIMARY KEY,
     paragraph_class TEXT,
     paragraph_text TEXT NOT NULL,
-    PRIMARY KEY(paragraph_id),
-    CONSTRAINT fk_chapter
-        FOREIGN KEY(chapter_id) 
-	    REFERENCES chapters(chapter_id)
+    c_id integer REFERENCES chapters
 );
 
 -- DATA --

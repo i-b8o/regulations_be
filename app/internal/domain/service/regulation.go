@@ -6,7 +6,7 @@ import (
 )
 
 type RegulationStorage interface {
-	Create(regulation *entity.Regulation) error
+	Create(regulation entity.Regulation) error
 	GetNamesAndIDsOfAllRegulations() []*entity.RegulationNamesAndIDsView
 	GetOne(id string) *entity.Regulation
 }
@@ -19,7 +19,7 @@ func NewRegulationService(storage RegulationStorage) *regulationService {
 	return &regulationService{storage: storage}
 }
 
-func (s *regulationService) Create(ctx context.Context, regulation *entity.Regulation) error {
+func (s *regulationService) Create(ctx context.Context, regulation entity.Regulation) error {
 	return s.storage.Create(regulation)
 }
 

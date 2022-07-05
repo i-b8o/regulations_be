@@ -24,6 +24,6 @@ func (rs *regulationStorage) GetOne(id string) *entity.Regulation {
 	return nil
 }
 
-func (rs *regulationStorage) GetNamesAndIDsOfAllRegulations() []*entity.Regulation {
+func (rs *regulationStorage) GetNamesAndIDsOfAllRegulations() []*entity.RegulationNamesAndIDsView {
 	return nil
 }

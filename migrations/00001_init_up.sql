@@ -36,7 +36,9 @@ CREATE TABLE chapters (
 );
 
 CREATE TABLE paragraphs (
-    paragraph_id INT NOT NULL PRIMARY KEY,
+    paragraph_id SERIAL PRIMARY KEY,
+    href INT,
+    paragraph_order_num INT NOT NULL,
     paragraph_class TEXT,
     paragraph_text TEXT NOT NULL,
     c_id integer REFERENCES chapters

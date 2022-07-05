@@ -6,9 +6,9 @@ import (
 )
 
 type RegulationStorage interface {
-	Create(regulation entity.Regulation) error
-	GetNamesAndIDsOfAllRegulations() []*entity.RegulationNamesAndIDsView
+	Create(regulation *entity.Regulation) error
 	GetOne(id string) *entity.Regulation
+	GetAll() []*entity.RegulationNamesAndIDsView
 }
 
 type regulationService struct {
@@ -19,12 +19,12 @@ func NewRegulationService(storage RegulationStorage) *regulationService {
 	return &regulationService{storage: storage}
 }
 
-func (s *regulationService) Create(ctx context.Context, regulation entity.Regulation) error {
+func (s *regulationService) Create(ctx context.Context, regulation *entity.Regulation) error {
 	return s.storage.Create(regulation)
 }
 
 func (s *regulationService) GetNamesAndIDsOfAllRegulations(ctx context.Context) []*entity.RegulationNamesAndIDsView {
-	return s.storage.GetNamesAndIDsOfAllRegulations()
+	return s.storage.GetAll()
 }
 
 func (s *regulationService) GetByID(ctx context.Context, id string) *entity.Regulation {

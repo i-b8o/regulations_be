@@ -16,6 +16,14 @@ func NewChapterStorage(client PostgreSQLClient, logger *logging.Logger) chapterS
 	return chapterStorage{queryBuilder: sq.StatementBuilder.PlaceholderFormat(sq.Dollar), client: client}
 }
 
-func (cs *chapterStorage) GetAllChaptersByRegulationID(regulationID string) []*entity.Chapter {
+func (cs *chapterStorage) GetAll(regulationID string) []*entity.Chapter {
 	return nil
 }
+
+func (cs *chapterStorage) Create(chapter *entity.Chapter) error {
+	return nil
+}
+
+// func (cs *chapterStorage) GetOne(id string) *entity.Chapter {
+// 	return nil
+// }

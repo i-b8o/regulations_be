@@ -5,8 +5,9 @@ import (
 )
 
 type ParagraphStorage interface {
-	GetParagraphByID(paragraphID string) *entity.Paragraph
-	GetAllParagraphsByChapterID(chapterID string) []entity.Paragraph
+	GetOne(paragraphID string) *entity.Paragraph
+	GetAll(chapterID string) []*entity.Paragraph
+	CreateAll(paragraphs []entity.Paragraph) error
 }
 
 type paragraphService struct {
@@ -18,9 +19,13 @@ func NewparagraphService(storage ParagraphStorage) *paragraphService {
 }
 
 func (s *paragraphService) GetParagraphByID(paragraphID string) *entity.Paragraph {
-	return s.storage.GetParagraphByID(paragraphID)
+	return s.storage.GetOne(paragraphID)
 }
 
-func (s *paragraphService) GetAllParagraphsByChapterID(chapterID string) []entity.Paragraph {
-	return s.storage.GetAllParagraphsByChapterID(chapterID)
+func (s *paragraphService) GetAllParagraphsByChapterID(chapterID string) []*entity.Paragraph {
+	return s.storage.GetAll(chapterID)
+}
+
+func (s *paragraphService) CreateAllParagraphs(paragraphs []entity.Paragraph) error {
+	return s.storage.CreateAll(paragraphs)
 }

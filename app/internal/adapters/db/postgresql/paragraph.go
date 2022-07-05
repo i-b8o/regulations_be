@@ -16,10 +16,14 @@ func NewParagraphStorage(client PostgreSQLClient, logger *logging.Logger) paragr
 	return paragraphStorage{queryBuilder: sq.StatementBuilder.PlaceholderFormat(sq.Dollar), client: client}
 }
 
-func (cs *paragraphStorage) GetOneParagraphByID(paragraphID string) *entity.Paragraph {
+func (cs *paragraphStorage) GetOne(paragraphID string) *entity.Paragraph {
 	return nil
 }
 
-func (cs *paragraphStorage) GetAllParagraphsByChapterID(chapterID string) *entity.Paragraph {
+func (cs *paragraphStorage) GetAll(chapterID string) []*entity.Paragraph {
+	return nil
+}
+
+func (cs *paragraphStorage) CreateAll(paragraphs []entity.Paragraph) error {
 	return nil
 }

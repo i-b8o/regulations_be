@@ -5,7 +5,8 @@ import (
 )
 
 type ChapterStorage interface {
-	GetAllChaptersForRegulationID(regulationID string) []*entity.Chapter
+	GetAll(regulationID string) []*entity.Chapter
+	Create(chapter *entity.Chapter) error
 }
 
 type chapterService struct {
@@ -17,5 +18,5 @@ func NewchapterService(storage ChapterStorage) *chapterService {
 }
 
 func (s *chapterService) GetAllChaptersForRegulationID(regulationID string) []*entity.Chapter {
-	return s.storage.GetAllChaptersForRegulationID(regulationID)
+	return s.storage.GetAll(regulationID)
 }

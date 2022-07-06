@@ -17,7 +17,9 @@ import (
 	"prod_serv/internal/config"
 	v1 "prod_serv/internal/controller/http/v1"
 	"prod_serv/internal/domain/service"
-	regUsecase "prod_serv/internal/domain/usecase/regulation"
+	chapter_usecase "prod_serv/internal/domain/usecase/chapter"
+	regulation_usecase "prod_serv/internal/domain/usecase/regulation"
+
 	"prod_serv/pkg/client/postgresql"
 	"prod_serv/pkg/logging"
 	"prod_serv/pkg/metric"
@@ -58,9 +60,16 @@ func NewApp(config *config.Config, logger *logging.Logger) (App, error) {
 	}
 	regAdapter := postgressql.NewRegulationStorage(pgClient, logger)
 	regService := service.NewRegulationService(regAdapter)
-	regUsecase := regUsecase.NewRegulationUsecase(regService)
+	regUsecase := regulation_usecase.NewRegulationUsecase(regService)
 	regHandler := v1.NewRegulationHandler(regUsecase)
+
+	chapterAdapter := postgressql.NewChapterStorage(pgClient, logger)
+	chapterService := service.NewChapterService(chapterAdapter)
+	chapterUsecase := chapter_usecase.NewChapterUsecase(chapterService)
+	chapterHandler := v1.NewChapterHandler(chapterUsecase)
+
 	regHandler.Register(router)
+	chapterHandler.Register(router)
 
 	// regulationStorage := storage.NewRegulationStorage(pgClient, logger)
 	// all, err := regulationStorage.All(context.Background())

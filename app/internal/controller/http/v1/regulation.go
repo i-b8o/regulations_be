@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"prod_serv/internal/controller/http/dto"
-	regulation_usecase "prod_serv/internal/domain/usecase/regulation"
+	usecase "prod_serv/internal/domain/usecase/regulation"
 	"strconv"
 
 	"github.com/julienschmidt/httprouter"
@@ -18,7 +18,8 @@ const (
 type RegulationUsecase interface {
 	// ListAllRegulationNamesAndIDs(ctx context.Context) []*entity.RegulationNamesAndIDsView
 	// GetRegulationByID(ctx context.Context, id string) *entity.Regulation
-	CreateRegulation(ctx context.Context, dto regulation_usecase.CreateRegulationDTO) (uint64, error)
+
+	CreateRegulation(ctx context.Context, dto usecase.CreateRegulationInput) (usecase.CreateRegulationOutput, error)
 }
 
 type regulationHandler struct {
@@ -50,16 +51,16 @@ func (h *regulationHandler) CreateRegulation(w http.ResponseWriter, r *http.Requ
 	if err := d.Validate(); err != nil {
 		return
 	}
-	// MAPPING dto.CreateRegulationRequestDTO --> regulation_usecase.CreateRegulationDTO
-	usecaseDTO := regulation_usecase.CreateRegulationDTO{
+	// MAPPING dto.CreateRegulationRequestDTO --> usecase.CreateRegulationDTO
+	usecaseInputDTO := usecase.CreateRegulationInput{
 		RegulationName: d.RegulationName,
 	}
-	regulationID, err := h.regulationUsecase.CreateRegulation(r.Context(), usecaseDTO)
+	usecaseOutputDTO, err := h.regulationUsecase.CreateRegulation(r.Context(), usecaseInputDTO)
 	if err != nil {
 		return
 	}
 	respDTO := dto.CreateRegulationResponseDTO{
-		RegulationID: strconv.FormatUint(regulationID, 10),
+		RegulationID: strconv.FormatUint(usecaseOutputDTO.RegulationID, 10),
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(respDTO)

@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Jul  6 10:58:50 2022
+# Make data base, printed on Wed Jul  6 17:20:23 2022
 
 # Variables
 
@@ -123,7 +123,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3436
+GIO_LAUNCHED_DESKTOP_FILE_PID = 70246
 # automatic
 %F = $(notdir $%)
 # environment
@@ -183,7 +183,7 @@ APP_BIN = app/build/app
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-39862acb-b940-49dc-b831-1fc5e14edcdd.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-20828dc2-b2fe-4c1f-8fea-04231192d5da.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -267,7 +267,7 @@ LC_ADDRESS = ru_RU.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3436
+VSCODE_PID = 70246
 # variable set hash-table stats:
 # Load=128/1024=12%, Rehash=0, Collisions=22/155=14%
 
@@ -277,9 +277,9 @@ VSCODE_PID = 3436
 
 # Directories
 
-# . (device 2053, inode 138306): 11 files, no impossibilities.
+# . (device 2053, inode 138306): 12 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 12 files, no impossibilities in 1 directories.
 
  
 # Implicit Rules
@@ -379,12 +379,12 @@ lint:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 25 / storage = 217 B / avg = 8 B
-# current buf: size = 8162 B / used = 217 B / count = 25 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 26 / storage = 227 B / avg = 8 B
+# current buf: size = 8162 B / used = 227 B / count = 26 / avg = 8 B
 
-# strcache performance: lookups = 40 / hit rate = 37%
+# strcache performance: lookups = 41 / hit rate = 36%
 # hash-table stats:
-# Load=25/8192=0%, Rehash=0, Collisions=1/40=2%
-# Finished Make data base on Wed Jul  6 10:58:50 2022
+# Load=26/8192=0%, Rehash=0, Collisions=1/41=2%
+# Finished Make data base on Wed Jul  6 17:20:24 2022
 
  

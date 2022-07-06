@@ -7,7 +7,7 @@ import (
 )
 
 type RegulationStorage interface {
-	Create(ctx context.Context, params adapters_dto.CreateRegulationParams) (uint64, error)
+	Create(ctx context.Context, params adapters_dto.CreateRegulationInput) (adapters_dto.CreateRegulationOutput, error)
 	// GetOne(id string) *entity.Regulation
 	// GetAll() []*entity.RegulationNamesAndIDsView
 }
@@ -20,12 +20,14 @@ func NewRegulationService(storage RegulationStorage) *regulationService {
 	return &regulationService{storage: storage}
 }
 
-func (s *regulationService) Create(ctx context.Context, regulation entity.Regulation) (uint64, error) {
+func (s *regulationService) Create(ctx context.Context, regulation entity.Regulation) (entity.Regulation, error) {
 	// MAPPING entity.Regulation --> adapters_dto.CreateRegulationParams
-	adapterDTO := adapters_dto.CreateRegulationParams{
-		RegulationName: regulation.RegulationName,
+	adapterDTO := adapters_dto.CreateRegulationInput{
+		RegulationName: regulation.Name,
 	}
-	return s.storage.Create(ctx, adapterDTO)
+	out, err := s.storage.Create(ctx, adapterDTO)
+	reg := entity.Regulation{Id: out.RegulationID}
+	return reg, err
 }
 
 // func (s *regulationService) GetNamesAndIDsOfAllRegulations(ctx context.Context) []*entity.RegulationNamesAndIDsView {

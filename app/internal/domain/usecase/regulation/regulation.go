@@ -1,4 +1,4 @@
-package regulation_usecase
+package usecase_regulation
 
 import (
 	"context"
@@ -9,7 +9,7 @@ type RegulationService interface {
 	// GetNamesAndIDsOfAllRegulations(ctx context.Context) []*entity.RegulationNamesAndIDsView
 	// GetByID(ctx context.Context, id string) *entity.Regulation
 
-	Create(ctx context.Context, regulation entity.Regulation) (uint64, error)
+	Create(ctx context.Context, regulation entity.Regulation) (entity.Regulation, error)
 }
 
 type regulationUsecase struct {
@@ -20,18 +20,20 @@ func NewRegulationUsecase(regulationService RegulationService) *regulationUsecas
 	return &regulationUsecase{regulationService: regulationService}
 }
 
-// func (u regulationUsecase) ListAllRegulationNamesAndIDs(ctx context.Context) []*entity.RegulationNamesAndIDsView {
-// 	return u.regulationService.GetNamesAndIDsOfAllRegulations(ctx)
-// }
-
-func (u regulationUsecase) CreateRegulation(ctx context.Context, dto CreateRegulationDTO) (uint64, error) {
-	// MAPPING dto.CreateRegulationDTO --> entity.CreateRegulationDTO
-	entityDTO := entity.Regulation{
-		RegulationName: dto.RegulationName,
+func (u regulationUsecase) CreateRegulation(ctx context.Context, dto CreateRegulationInput) (CreateRegulationOutput, error) {
+	// MAPPING dto.CreateRegulationDTO --> entity.Regulation
+	regulation := entity.Regulation{
+		Name: dto.RegulationName,
 	}
-	return u.regulationService.Create(ctx, entityDTO)
+
+	reg, err := u.regulationService.Create(ctx, regulation)
+	return CreateRegulationOutput{RegulationID: reg.Id}, err
 }
 
 // func (u regulationUsecase) GetRegulationByID(ctx context.Context, id string) *entity.Regulation {
 // 	return u.regulationService.GetByID(ctx, id)
+// }
+
+// func (u regulationUsecase) ListAllRegulationNamesAndIDs(ctx context.Context) []*entity.RegulationNamesAndIDsView {
+// 	return u.regulationService.GetNamesAndIDsOfAllRegulations(ctx)
 // }

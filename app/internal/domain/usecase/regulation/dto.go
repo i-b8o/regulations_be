@@ -1,5 +1,9 @@
-package regulation_usecase
+package usecase_regulation
 
-type CreateRegulationDTO struct {
+type CreateRegulationInput struct {
 	RegulationName string
+}
+
+type CreateRegulationOutput struct {
+	RegulationID uint64
 }

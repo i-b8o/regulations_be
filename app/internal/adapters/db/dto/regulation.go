@@ -2,8 +2,13 @@ package dto
 
 import "time"
 
-// CreateRegulationParams used by CreateRegulation.
-type CreateRegulationParams struct {
+// CreateRegulationInput used by CreateRegulation.
+type CreateRegulationInput struct {
 	RegulationName string
 	CreatedAt      time.Time
+}
+
+// CreateRegulationResonse returned by CreateRegulation.
+type CreateRegulationOutput struct {
+	RegulationID uint64
 }

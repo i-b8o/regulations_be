@@ -1,8 +1,8 @@
 package entity
 
 type Chapter struct {
-	ChapterID    string
-	ChapterName  string
-	ChapterNum   string
-	RegulationID string
+	ID           uint64
+	Name         string
+	Num          string
+	RegulationID uint64
 }

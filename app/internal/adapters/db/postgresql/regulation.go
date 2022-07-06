@@ -22,32 +22,26 @@ func NewRegulationStorage(client client.PostgreSQLClient, logger *logging.Logger
 	return &regulationStorage{client: client}
 }
 
-// func (rs *regulationStorage) GetOne(id string) *entity.Regulation {
-// 	return nil
-// }
-
-// func (rs *regulationStorage) GetAll() []*entity.RegulationNamesAndIDsView {
-// 	return nil
-// }
-
-func (rs *regulationStorage) Create(ctx context.Context, params dto.CreateRegulationParams) (uint64, error) {
+func (rs *regulationStorage) Create(ctx context.Context, params dto.CreateRegulationInput) (dto.CreateRegulationOutput, error) {
 	t := time.Now()
 
 	const sql = `INSERT INTO regulations ("name", "created_at") VALUES ($1, $2) RETURNING "id"`
 
 	row := rs.client.QueryRow(ctx, sql, params.RegulationName, t)
 	var regulationID uint64
+	resp := dto.CreateRegulationOutput{}
 	switch err := row.Scan(&regulationID); {
 	case errors.Is(err, context.Canceled), errors.Is(err, context.DeadlineExceeded):
-		return 0, err
+		return resp, err
 	case err != nil:
 		if sqlErr := rs.regulationPgError(err); sqlErr != nil {
-			return 0, sqlErr
+			return resp, sqlErr
 		}
 		log.Printf("cannot create regulation on database: %v\n", err)
-		return 0, errors.New("cannot create regulation on database")
+		return resp, errors.New("cannot create regulation on database")
 	}
-	return regulationID, nil
+	resp.RegulationID = regulationID
+	return resp, nil
 }
 
 func (rs *regulationStorage) regulationPgError(err error) error {
@@ -68,3 +62,11 @@ func (rs *regulationStorage) regulationPgError(err error) error {
 	}
 	return nil
 }
+
+// func (rs *regulationStorage) GetOne(id string) *entity.Regulation {
+// 	return nil
+// }
+
+// func (rs *regulationStorage) GetAll() []*entity.RegulationNamesAndIDsView {
+// 	return nil
+// }

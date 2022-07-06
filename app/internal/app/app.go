@@ -18,6 +18,7 @@ import (
 	v1 "prod_serv/internal/controller/http/v1"
 	"prod_serv/internal/domain/service"
 	chapter_usecase "prod_serv/internal/domain/usecase/chapter"
+	paragraph_usecase "prod_serv/internal/domain/usecase/paragraph"
 	regulation_usecase "prod_serv/internal/domain/usecase/regulation"
 
 	"prod_serv/pkg/client/postgresql"
@@ -68,8 +69,14 @@ func NewApp(config *config.Config, logger *logging.Logger) (App, error) {
 	chapterUsecase := chapter_usecase.NewChapterUsecase(chapterService)
 	chapterHandler := v1.NewChapterHandler(chapterUsecase)
 
+	paragraphAdapter := postgressql.NewParagraphStorage(pgClient, logger)
+	paragraphService := service.NewParagraphService(paragraphAdapter)
+	paragraphUsecase := paragraph_usecase.NewParagraphUsecase(paragraphService)
+	paragraphHandler := v1.NewParagraphHandler(paragraphUsecase)
+
 	regHandler.Register(router)
 	chapterHandler.Register(router)
+	paragraphHandler.Register(router)
 
 	// regulationStorage := storage.NewRegulationStorage(pgClient, logger)
 	// all, err := regulationStorage.All(context.Background())

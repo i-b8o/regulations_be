@@ -37,7 +37,7 @@ CREATE TABLE chapters (
 
 CREATE TABLE paragraphs (
     id SERIAL PRIMARY KEY,
-    href INT,
+    href INT NOT NULL CHECK (num >= 0),
     num INT NOT NULL CHECK (num >= 0),
     class TEXT,
     content TEXT NOT NULL CHECK (content != ''),
@@ -45,6 +45,6 @@ CREATE TABLE paragraphs (
 );
 
 -- DATA --
-INSERT INTO regulations (name, created_at) VALUES ('Test', '2016-01-25 10:10:10.555555-05:00');
+
 
 COMMIT;

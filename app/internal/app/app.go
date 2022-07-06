@@ -13,8 +13,11 @@ import (
 	"time"
 
 	_ "prod_serv/docs"
+	postgressql "prod_serv/internal/adapters/db/postgresql"
 	"prod_serv/internal/config"
-	"prod_serv/internal/domain/regulation/storage"
+	v1 "prod_serv/internal/controller/http/v1"
+	"prod_serv/internal/domain/service"
+	regUsecase "prod_serv/internal/domain/usecase/regulation"
 	"prod_serv/pkg/client/postgresql"
 	"prod_serv/pkg/logging"
 	"prod_serv/pkg/metric"
@@ -53,13 +56,18 @@ func NewApp(config *config.Config, logger *logging.Logger) (App, error) {
 	if err != nil {
 		logger.Fatal(err)
 	}
+	regAdapter := postgressql.NewRegulationStorage(pgClient, logger)
+	regService := service.NewRegulationService(regAdapter)
+	regUsecase := regUsecase.NewRegulationUsecase(regService)
+	regHandler := v1.NewRegulationHandler(regUsecase)
+	regHandler.Register(router)
 
-	regulationStorage := storage.NewRegulationStorage(pgClient, logger)
-	all, err := regulationStorage.All(context.Background())
-	if err != nil {
-		logger.Fatal(err)
-	}
-	logger.Fatal(all)
+	// regulationStorage := storage.NewRegulationStorage(pgClient, logger)
+	// all, err := regulationStorage.All(context.Background())
+	// if err != nil {
+	// 	logger.Fatal(err)
+	// }
+	// logger.Fatal(all)
 
 	return App{cfg: config, logger: logger, router: router}, nil
 }

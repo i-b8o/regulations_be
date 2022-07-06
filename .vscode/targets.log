@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jul  5 18:26:07 2022
+# Make data base, printed on Wed Jul  6 10:58:50 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/share/code/code
 # environment
-JOURNAL_STREAM = 8:45139
+JOURNAL_STREAM = 8:43390
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -77,7 +77,7 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 1542
+MANAGERPID = 1582
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -99,7 +99,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-SESSION_MANAGER = local/kvo-System-Product-Name:@/tmp/.ICE-unix/1753,unix/kvo-System-Product-Name:/tmp/.ICE-unix/1753
+SESSION_MANAGER = local/kvo-System-Product-Name:@/tmp/.ICE-unix/1792,unix/kvo-System-Product-Name:/tmp/.ICE-unix/1792
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -113,7 +113,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 6f17ccc470a0432e81b3d97cf6f1297f
+INVOCATION_ID = b936a227910645d4b40aa43f31312561
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -123,7 +123,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2310
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3436
 # automatic
 %F = $(notdir $%)
 # environment
@@ -137,7 +137,7 @@ PWD = /home/kvo/go/src/github.com/i-b8o/regulations_be
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1714
+SSH_AGENT_PID = 1755
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -183,7 +183,7 @@ APP_BIN = app/build/app
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-c14ee35d-17e1-4211-ad89-f6c93e02eff8.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-39862acb-b940-49dc-b831-1fc5e14edcdd.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -267,7 +267,7 @@ LC_ADDRESS = ru_RU.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 2310
+VSCODE_PID = 3436
 # variable set hash-table stats:
 # Load=128/1024=12%, Rehash=0, Collisions=22/155=14%
 
@@ -281,6 +281,7 @@ VSCODE_PID = 2310
 
 # 11 files, no impossibilities in 1 directories.
 
+ 
 # Implicit Rules
 
 # No implicit rules.
@@ -296,7 +297,6 @@ app/build/app:
 
 migrate.up:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 24):
@@ -385,6 +385,6 @@ lint:
 # strcache performance: lookups = 40 / hit rate = 37%
 # hash-table stats:
 # Load=25/8192=0%, Rehash=0, Collisions=1/40=2%
-# Finished Make data base on Tue Jul  5 18:26:07 2022
+# Finished Make data base on Wed Jul  6 10:58:50 2022
 
  

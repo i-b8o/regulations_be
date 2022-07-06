@@ -21,30 +21,30 @@ DROP TABLE IF EXISTS chapters;
 DROP TABLE IF EXISTS regulations;
 
 CREATE TABLE regulations (
-    regulation_id SERIAL PRIMARY KEY,
-    regulation_name TEXT NOT NULL,
-    created_at TIMESTAMPTZ,
-    updated_at TIMESTAMPTZ
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL CHECK (NAME != ''),
+    created_at TIMESTAMPTZ NOT NULL,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE TABLE chapters (
-    chapter_id SERIAL PRIMARY KEY,
-    chapter_name TEXT NOT NULL,
-    chapter_num TEXT NOT NULL,
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL CHECK (NAME != ''),
+    num TEXT,
 
     r_id integer REFERENCES regulations
 );
 
 CREATE TABLE paragraphs (
-    paragraph_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     href INT,
-    paragraph_order_num INT NOT NULL,
-    paragraph_class TEXT,
-    paragraph_text TEXT NOT NULL,
+    num INT NOT NULL CHECK (num >= 0),
+    class TEXT,
+    content TEXT NOT NULL CHECK (content != ''),
     c_id integer REFERENCES chapters
 );
 
 -- DATA --
-INSERT INTO regulations (regulation_id, regulation_name, created_at) VALUES (1, 'Test', '1999-01-08 04:05:06');
+INSERT INTO regulations (name, created_at) VALUES ('Test', '2016-01-25 10:10:10.555555-05:00');
 
 COMMIT;

@@ -1,9 +1,10 @@
 package entity
 
 type Paragraph struct {
-	ID                string  `json:"id,omitempty"`
-	Href              *string `json:"href,omitempty"`
-	ParagraphOrderNum string  `json:"paragraph_order_num"`
-	ParagraphClass    *string `json:"p_class,omitempty"`
-	ParagraphText     string  `json:"paragraph_text"`
+	ID                string
+	Href              string
+	ParagraphOrderNum string
+	ParagraphClass    string
+	ParagraphText     string
+	ChapterID         string
 }

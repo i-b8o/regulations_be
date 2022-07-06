@@ -4,16 +4,15 @@ import (
 	"prod_serv/internal/domain/entity"
 	"prod_serv/pkg/logging"
 
-	sq "github.com/Masterminds/squirrel"
+	client "prod_serv/pkg/client/postgresql"
 )
 
 type chapterStorage struct {
-	queryBuilder sq.StatementBuilderType
-	client       PostgreSQLClient
+	client client.PostgreSQLClient
 }
 
-func NewChapterStorage(client PostgreSQLClient, logger *logging.Logger) chapterStorage {
-	return chapterStorage{queryBuilder: sq.StatementBuilder.PlaceholderFormat(sq.Dollar), client: client}
+func NewChapterStorage(client client.PostgreSQLClient, logger *logging.Logger) chapterStorage {
+	return chapterStorage{client: client}
 }
 
 func (cs *chapterStorage) GetAll(regulationID string) []*entity.Chapter {

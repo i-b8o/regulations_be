@@ -8,6 +8,7 @@ require (
 	github.com/go-openapi/swag v0.21.1 // indirect
 	github.com/ilyakaznacheev/cleanenv v1.3.0
 	github.com/jackc/pgconn v1.12.1 // indirect
+	github.com/jackc/pgerrcode v0.0.0-20220416144525-469b46aa5efa // indirect
 	github.com/jackc/pgx v3.6.2+incompatible // indirect
 	github.com/jackc/pgx/v4 v4.16.1 // indirect
 	github.com/julienschmidt/httprouter v1.3.0

@@ -2,18 +2,16 @@ package postgressql
 
 import (
 	"prod_serv/internal/domain/entity"
+	client "prod_serv/pkg/client/postgresql"
 	"prod_serv/pkg/logging"
-
-	sq "github.com/Masterminds/squirrel"
 )
 
 type paragraphStorage struct {
-	queryBuilder sq.StatementBuilderType
-	client       PostgreSQLClient
+	client client.PostgreSQLClient
 }
 
-func NewParagraphStorage(client PostgreSQLClient, logger *logging.Logger) paragraphStorage {
-	return paragraphStorage{queryBuilder: sq.StatementBuilder.PlaceholderFormat(sq.Dollar), client: client}
+func NewParagraphStorage(client client.PostgreSQLClient, logger *logging.Logger) paragraphStorage {
+	return paragraphStorage{client: client}
 }
 
 func (cs *paragraphStorage) GetOne(paragraphID string) *entity.Paragraph {

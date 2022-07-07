@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS regulations;
 CREATE TABLE regulations (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL CHECK (NAME != ''),
+    abbreviation TEXT,
     created_at TIMESTAMPTZ NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );

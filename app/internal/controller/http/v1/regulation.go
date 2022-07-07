@@ -54,6 +54,7 @@ func (h *regulationHandler) CreateRegulation(w http.ResponseWriter, r *http.Requ
 	// MAPPING dto.CreateRegulationRequestDTO --> usecase.CreateRegulationDTO
 	usecaseInputDTO := usecase.CreateRegulationInput{
 		RegulationName: d.RegulationName,
+		Abbreviation:   d.Abbreviation,
 	}
 	usecaseOutputDTO, err := h.regulationUsecase.CreateRegulation(r.Context(), usecaseInputDTO)
 	if err != nil {

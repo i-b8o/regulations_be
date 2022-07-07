@@ -52,14 +52,11 @@ func (h *chapterHandler) CreateChapter(w http.ResponseWriter, r *http.Request, p
 		return
 	}
 	// MAPPING dto.CreateChapterRequestDTO --> usecase.CreateChapterInput
-	regID, err := strconv.ParseUint(d.RegulationID, 10, 64)
-	if err != nil {
-		return
-	}
+
 	usecaseInput := usecase.CreateChapterInput{
 		Name:         d.ChapterName,
 		Num:          d.ChapterNum,
-		RegulationID: regID,
+		RegulationID: d.RegulationID,
 	}
 	usecaseOutput, err := h.chapterUsecase.CreateChapter(r.Context(), usecaseInput)
 	if err != nil {

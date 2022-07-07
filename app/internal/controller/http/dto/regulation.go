@@ -4,6 +4,7 @@ import "fmt"
 
 type CreateRegulationRequestDTO struct {
 	RegulationName string `json:"regulation_name"`
+	Abbreviation   string `json:"abbreviation"`
 }
 
 func (dto *CreateRegulationRequestDTO) Validate() error {

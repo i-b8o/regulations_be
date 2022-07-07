@@ -7,24 +7,17 @@ type CreateParagraphsRequest struct {
 }
 
 type Paragraph struct {
-	ParagraphID       string `json:"paragraph_id"`
-	ParagraphOrderNum string `json:"paragraph_order_num"`
+	ParagraphID       uint64 `json:"paragraph_id"`
+	ParagraphOrderNum uint64 `json:"paragraph_order_num"`
 	ParagraphClass    string `json:"paragraph_class,omitempty"`
 	ParagraphText     string `json:"paragraph_text"`
-	ChapterID         string `json:"chapter_id"`
+	ChapterID         uint64 `json:"chapter_id"`
 }
 
 func (dto *Paragraph) Validate() error {
-	if dto.ParagraphOrderNum == "" {
-		return fmt.Errorf("missing paragraph num")
-	}
 
 	if dto.ParagraphText == "" {
 		return fmt.Errorf("missing paragraph text")
-	}
-
-	if dto.ChapterID == "" {
-		return fmt.Errorf("missing chapter id")
 	}
 
 	if dto.ParagraphClass == "" {

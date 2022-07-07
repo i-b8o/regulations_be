@@ -1,8 +1,8 @@
 package entity
 
 type Paragraph struct {
-	ID        string
-	Num       string
+	ID        uint64
+	Num       uint64
 	Class     string
 	Content   string
 	ChapterID uint64

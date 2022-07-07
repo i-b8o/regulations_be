@@ -24,6 +24,7 @@ func (s *regulationService) Create(ctx context.Context, regulation entity.Regula
 	// MAPPING entity.Regulation --> adapters_dto.CreateRegulationParams
 	adapterDTO := adapters_dto.CreateRegulationInput{
 		RegulationName: regulation.Name,
+		Abbreviation:   regulation.Abbreviation,
 	}
 	out, err := s.storage.Create(ctx, adapterDTO)
 	reg := entity.Regulation{Id: out.RegulationID}

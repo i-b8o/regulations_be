@@ -5,6 +5,7 @@ import "time"
 // CreateRegulationInput used by CreateRegulation.
 type CreateRegulationInput struct {
 	RegulationName string
+	Abbreviation   string
 	CreatedAt      time.Time
 }
 

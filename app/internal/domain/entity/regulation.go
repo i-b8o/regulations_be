@@ -3,10 +3,11 @@ package entity
 import "time"
 
 type Regulation struct {
-	Id        uint64
-	Name      string
-	CreatedAt time.Time
-	UpdatedAt *time.Time
+	Id           uint64
+	Name         string
+	Abbreviation string
+	CreatedAt    time.Time
+	UpdatedAt    *time.Time
 }
 
 // type RegulationNamesAndIDsView struct {

@@ -3,7 +3,7 @@ package dto
 import "fmt"
 
 type CreateChapterRequest struct {
-	RegulationID string `json:"regulation_id,omitempty"`
+	RegulationID uint64 `json:"regulation_id"`
 	ChapterName  string `json:"chapter_name"`
 	ChapterNum   string `json:"chapter_num,omitempty"`
 }
@@ -11,9 +11,6 @@ type CreateChapterRequest struct {
 func (dto *CreateChapterRequest) Validate() error {
 	if dto.ChapterName == "" {
 		return fmt.Errorf("missing chapter name")
-	}
-	if dto.RegulationID == "" {
-		return fmt.Errorf("missing regulation id")
 	}
 
 	return nil

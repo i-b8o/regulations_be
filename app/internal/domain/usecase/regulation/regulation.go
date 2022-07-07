@@ -23,7 +23,8 @@ func NewRegulationUsecase(regulationService RegulationService) *regulationUsecas
 func (u regulationUsecase) CreateRegulation(ctx context.Context, dto CreateRegulationInput) (CreateRegulationOutput, error) {
 	// MAPPING dto.CreateRegulationDTO --> entity.Regulation
 	regulation := entity.Regulation{
-		Name: dto.RegulationName,
+		Name:         dto.RegulationName,
+		Abbreviation: dto.Abbreviation,
 	}
 
 	reg, err := u.regulationService.Create(ctx, regulation)

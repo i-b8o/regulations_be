@@ -25,9 +25,9 @@ func NewRegulationStorage(client client.PostgreSQLClient, logger *logging.Logger
 func (rs *regulationStorage) Create(ctx context.Context, params dto.CreateRegulationInput) (dto.CreateRegulationOutput, error) {
 	t := time.Now()
 
-	const sql = `INSERT INTO regulations ("name", "created_at") VALUES ($1, $2) RETURNING "id"`
+	const sql = `INSERT INTO regulations ("name", "abbreviation", "created_at") VALUES ($1, $2, $3) RETURNING "id"`
 
-	row := rs.client.QueryRow(ctx, sql, params.RegulationName, t)
+	row := rs.client.QueryRow(ctx, sql, params.RegulationName, params.Abbreviation, t)
 	var regulationID uint64
 	resp := dto.CreateRegulationOutput{}
 	switch err := row.Scan(&regulationID); {

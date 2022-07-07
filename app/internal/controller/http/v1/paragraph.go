@@ -3,12 +3,10 @@ package v1
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"prod_serv/internal/controller/http/dto"
 	"prod_serv/internal/domain/entity"
 	usecase_paragraph "prod_serv/internal/domain/usecase/paragraph"
-	"strconv"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -56,19 +54,13 @@ func (h *paragraphHandler) CreateParagraphs(w http.ResponseWriter, r *http.Reque
 			json.NewEncoder(w).Encode(resp)
 			return
 		}
-		chID, err := strconv.ParseUint(p.ChapterID, 10, 64)
-		if err != nil {
-			resp := dto.ErrorResponse{Message: fmt.Sprintf("Failed to parse uid %s", p.ChapterID)}
-			json.NewEncoder(w).Encode(resp)
-			return
-		}
 
 		paragraph := entity.Paragraph{
 			ID:        p.ParagraphID,
 			Num:       p.ParagraphOrderNum,
 			Class:     p.ParagraphClass,
 			Content:   p.ParagraphText,
-			ChapterID: chID,
+			ChapterID: p.ChapterID,
 		}
 		usecaseIn.Paragraphs = append(usecaseIn.Paragraphs, paragraph)
 	}

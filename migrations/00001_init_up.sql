@@ -49,3 +49,7 @@ CREATE TABLE paragraphs (
 
 
 COMMIT;
+
+SELECT * FROM regulations;
+SELECT * FROM chapters;
+SELECT * FROM paragraphs;

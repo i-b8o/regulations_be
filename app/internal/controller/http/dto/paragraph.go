@@ -7,9 +7,9 @@ type CreateParagraphsRequest struct {
 }
 
 type Paragraph struct {
-	Href              int    `json:"href,omitempty"`
+	paragraphID       string `json:"paragraph_id"`
 	ParagraphOrderNum string `json:"paragraph_order_num"`
-	ParagraphClass    string `json:"p_class,omitempty"`
+	ParagraphClass    string `json:"paragraph_class,omitempty"`
 	ParagraphText     string `json:"paragraph_text"`
 	ChapterID         string `json:"chapter_id"`
 }

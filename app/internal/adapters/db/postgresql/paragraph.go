@@ -18,13 +18,13 @@ func NewParagraphStorage(client client.PostgreSQLClient, logger *logging.Logger)
 
 func (cs *paragraphStorage) CreateAll(ctx context.Context, in dto.CreateParagraphsInput) dto.CreateParagraphsOutput {
 	vals := []interface{}{}
-	sql := `INSERT INTO paragraphs ("href","num","class","content","c_id") VALUES `
+	sql := `INSERT INTO paragraphs ("num","class","content","c_id") VALUES `
 	i := 1
 	for _, p := range in.Paragraphs {
 
-		sql += fmt.Sprintf("($%d, $%d, $%d, $%d, $%d),", i, i+1, i+2, i+3, i+4)
+		sql += fmt.Sprintf("($%d, $%d, $%d, $%d),", i, i+1, i+2, i+3)
 		i = i + 5
-		vals = append(vals, p.Href, p.Num, p.Class, p.Content, p.ChapterID)
+		vals = append(vals, p.Num, p.Class, p.Content, p.ChapterID)
 	}
 	sql = sql[:len(sql)-1]
 	out := dto.CreateParagraphsOutput{}

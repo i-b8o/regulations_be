@@ -2,7 +2,6 @@ package entity
 
 type Paragraph struct {
 	ID        string
-	Href      int
 	Num       string
 	Class     string
 	Content   string

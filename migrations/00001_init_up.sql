@@ -38,6 +38,7 @@ CREATE TABLE chapters (
 
 CREATE TABLE paragraphs (
     id SERIAL PRIMARY KEY,
+    paragraph_id INT NOT NULL CHECK (num >= 0),
     num INT NOT NULL CHECK (num >= 0),
     class TEXT,
     content TEXT NOT NULL CHECK (content != ''),

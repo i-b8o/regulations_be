@@ -64,6 +64,7 @@ func (h *paragraphHandler) CreateParagraphs(w http.ResponseWriter, r *http.Reque
 		}
 
 		paragraph := entity.Paragraph{
+			ID:        p.ParagraphID,
 			Num:       p.ParagraphOrderNum,
 			Class:     p.ParagraphClass,
 			Content:   p.ParagraphText,

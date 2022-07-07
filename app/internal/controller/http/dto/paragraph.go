@@ -7,7 +7,7 @@ type CreateParagraphsRequest struct {
 }
 
 type Paragraph struct {
-	paragraphID       string `json:"paragraph_id"`
+	ParagraphID       string `json:"paragraph_id"`
 	ParagraphOrderNum string `json:"paragraph_order_num"`
 	ParagraphClass    string `json:"paragraph_class,omitempty"`
 	ParagraphText     string `json:"paragraph_text"`

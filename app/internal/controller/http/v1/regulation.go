@@ -3,6 +3,7 @@ package v1
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"prod_serv/internal/controller/http/dto"
 	"prod_serv/internal/domain/entity"
@@ -11,8 +12,9 @@ import (
 )
 
 const (
-	regulationCreate  = "/r"
-	regulationGetFull = "/rgf"
+	regulationCreate      = "/r"
+	regulationGetFullJSON = "/rgfjson"
+	regulationGetFullDart = "/rgfdart"
 )
 
 type RegulationUsecase interface {
@@ -30,16 +32,61 @@ func NewRegulationHandler(regulationUsecase RegulationUsecase) *regulationHandle
 
 func (h *regulationHandler) Register(router *httprouter.Router) {
 	router.POST(regulationCreate, h.CreateRegulation)
-	router.POST(regulationGetFull, h.GetFullRegulation)
+	router.POST(regulationGetFullJSON, h.GetFullRegulationJSON)
+	router.POST(regulationGetFullDart, h.GetFullRegulationDart)
 }
 
-func (h *regulationHandler) GetFullRegulation(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+func (h *regulationHandler) GetFullRegulationDart(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	// Set headers
 	w.Header().Set("Content-Type", "application/json")
 
 	// Input and Output
 	var input dto.GetFullRegulationRequestDTO
-	var out dto.GetFullRegulationResponseDTO
+	var out dto.GetFullRegulationDartResponseDTO
+
+	// Get JSON request
+	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+		out.Response.Errors = append(out.Response.Errors, err.Error())
+		json.NewEncoder(w).Encode(out)
+		return
+	}
+	defer r.Body.Close()
+
+	// MAPPING dto.CreateRegulationRequestDTO --> string
+	usecaseRegulationID := input.RegulationID
+
+	// Usecase
+	response, regulation := h.regulationUsecase.GetFullRegulationByID(r.Context(), usecaseRegulationID)
+
+	// MAPPING entity.Regulation --> dto.GetFullRegulationResponseDTO
+	out.Response = response
+
+	start := `List<Chapter> allChapters = <Chapter>[`
+	str := `
+	`
+
+	for _, chapter := range regulation.Chapters {
+		str += fmt.Sprintf(`Chapter(
+			ID: "%d";
+			Name: "%s";
+			Num: "%s";
+			`, chapter.ID, chapter.Name, chapter.Num)
+	}
+
+	dart := start + str
+
+	// json.NewEncoder(w).Encode(out)
+	w.Write([]byte(dart))
+
+}
+
+func (h *regulationHandler) GetFullRegulationJSON(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	// Set headers
+	w.Header().Set("Content-Type", "application/json")
+
+	// Input and Output
+	var input dto.GetFullRegulationRequestDTO
+	var out dto.GetFullRegulationJSONResponseDTO
 
 	// Get JSON request
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
@@ -58,21 +105,7 @@ func (h *regulationHandler) GetFullRegulation(w http.ResponseWriter, r *http.Req
 	// MAPPING entity.Regulation --> dto.GetFullRegulationResponseDTO
 	out.Response = response
 	out.Regulation = regulation
-	// out.Response = response
-	// out.RegulationID = regulation.Id
-	// out.Abbreviation = regulation.Abbreviation
-	// out.RegulationName = regulation.Name
-	// var chapters []dto.Chapter
-	// for _, c := range regulation.Chapters {
-	// 	var chapter dto.Chapter
-	// 	chapter.ID = c.ID
-	// 	chapter.Name = c.Name
-	// 	chapter.Num = c.Num
-	// 	// chapter.Paragraphs = c.Paragraphs
-	// 	chapters = append(chapters, chapter)
-	// }
-	// out.Chapters = chapters
-	// Response
+
 	json.NewEncoder(w).Encode(out)
 
 }

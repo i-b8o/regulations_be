@@ -22,7 +22,12 @@ type GetFullRegulationRequestDTO struct {
 	RegulationID uint64 `json:"regulation_id"`
 }
 
-type GetFullRegulationResponseDTO struct {
+type GetFullRegulationJSONResponseDTO struct {
 	Response   entity.Response   `json:"response"`
 	Regulation entity.Regulation `json:"regulation"`
+}
+
+type GetFullRegulationDartResponseDTO struct {
+	Response   entity.Response `json:"response"`
+	Regulation string          `json:"regulation"`
 }

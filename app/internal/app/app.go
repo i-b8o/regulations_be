@@ -78,13 +78,6 @@ func NewApp(config *config.Config, logger *logging.Logger) (App, error) {
 	chapterHandler.Register(router)
 	paragraphHandler.Register(router)
 
-	// regulationStorage := storage.NewRegulationStorage(pgClient, logger)
-	// all, err := regulationStorage.All(context.Background())
-	// if err != nil {
-	// 	logger.Fatal(err)
-	// }
-	// logger.Fatal(all)
-
 	return App{cfg: config, logger: logger, router: router}, nil
 }
 

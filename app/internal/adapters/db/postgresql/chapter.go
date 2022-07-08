@@ -3,8 +3,10 @@ package postgressql
 import (
 	"context"
 	"errors"
-	"prod_serv/internal/adapters/db/dto"
+	"log"
+	"strconv"
 
+	"prod_serv/internal/domain/entity"
 	client "prod_serv/pkg/client/postgresql"
 	"prod_serv/pkg/logging"
 
@@ -20,23 +22,45 @@ func NewChapterStorage(client client.PostgreSQLClient, logger *logging.Logger) *
 	return &chapterStorage{client: client}
 }
 
-func (cs *chapterStorage) Create(ctx context.Context, params dto.CreateChapterInput) (dto.CreateChapterOutput, error) {
+func (cs *chapterStorage) GetOne(ctx context.Context, regulation entity.Regulation) (entity.Response, []entity.Chapter) {
+	const sql = `SELECT id,name,num FROM "chapters" WHERE r_id = $1 LIMIT 1`
+	row := cs.client.QueryRow(ctx, sql, regulation.Id)
+
+	var resp entity.Response
+	var chapter entity.Chapter
+	switch err := row.Scan(&chapter.ID, &chapter.Name, &chapter.Num); {
+	case errors.Is(err, context.Canceled), errors.Is(err, context.DeadlineExceeded):
+		resp.Errors = append(resp.Errors, err.Error())
+		return resp, chapter
+	case err != nil:
+		resp.Errors = append(resp.Errors, err.Error())
+		log.Printf("cannot get chapter from database: %v\n", err)
+		return resp, chapter
+	}
+
+	return resp, chapter
+}
+
+func (cs *chapterStorage) Create(ctx context.Context, chapter entity.Chapter) entity.Response {
 	sql := `INSERT INTO chapters ("name", "num", "r_id") VALUES ($1,$2,$3) RETURNING "id"`
 
-	row := cs.client.QueryRow(ctx, sql, params.ChapterName, params.ChapterNum, params.RegulationID)
+	row := cs.client.QueryRow(ctx, sql, chapter.Name, chapter.Num, chapter.RegulationID)
 	var chapterID uint64
-	resp := dto.CreateChapterOutput{}
+	resp := entity.Response{}
 	switch err := row.Scan(&chapterID); {
 	case errors.Is(err, context.Canceled), errors.Is(err, context.DeadlineExceeded):
-		return resp, err
+		resp.Errors = append(resp.Errors, err.Error())
+		return resp
 	case err != nil:
 		if sqlErr := cs.chapterPgError(err); sqlErr != nil {
-			return resp, sqlErr
+			resp.Errors = append(resp.Errors, sqlErr.Error())
+			return resp
 		}
-		return resp, errors.New("cannot create chapter on database")
+		resp.Errors = append(resp.Errors, err.Error())
+		return resp
 	}
-	resp.ChapterID = chapterID
-	return resp, nil
+	resp.ID = strconv.FormatUint(chapterID, 10)
+	return resp
 }
 
 func (cs *chapterStorage) chapterPgError(err error) error {

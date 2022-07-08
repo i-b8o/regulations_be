@@ -4,7 +4,8 @@ import (
 	"context"
 	"errors"
 	"log"
-	dto "prod_serv/internal/adapters/db/dto"
+	"prod_serv/internal/domain/entity"
+	"strconv"
 	"time"
 
 	client "prod_serv/pkg/client/postgresql"
@@ -22,29 +23,50 @@ func NewRegulationStorage(client client.PostgreSQLClient, logger *logging.Logger
 	return &regulationStorage{client: client}
 }
 
-func (rs *regulationStorage) Create(ctx context.Context, params dto.CreateRegulationInput) (dto.CreateRegulationOutput, error) {
+func (rs *regulationStorage) GetOne(ctx context.Context, regulation entity.Regulation) (entity.Response, entity.Regulation) {
+	const sql = `SELECT name,abbreviation FROM "regulations" WHERE id = $1 LIMIT 1`
+	row := rs.client.QueryRow(ctx, sql, regulation.Id)
+
+	var resp entity.Response
+	switch err := row.Scan(&regulation.Name, &regulation.Abbreviation); {
+	case errors.Is(err, context.Canceled), errors.Is(err, context.DeadlineExceeded):
+		resp.Errors = append(resp.Errors, err.Error())
+		return resp, regulation
+	case err != nil:
+		resp.Errors = append(resp.Errors, err.Error())
+		log.Printf("cannot get regulation from database: %v\n", err)
+		return resp, regulation
+	}
+
+	return resp, regulation
+}
+
+func (rs *regulationStorage) Create(ctx context.Context, regulation entity.Regulation) entity.Response {
 	t := time.Now()
 
 	const sql = `INSERT INTO regulations ("name", "abbreviation", "created_at") VALUES ($1, $2, $3) RETURNING "id"`
 
-	row := rs.client.QueryRow(ctx, sql, params.RegulationName, params.Abbreviation, t)
+	row := rs.client.QueryRow(ctx, sql, regulation.Name, regulation.Abbreviation, t)
 	var regulationID uint64
-	resp := dto.CreateRegulationOutput{}
+	resp := entity.Response{}
 	switch err := row.Scan(&regulationID); {
 	case errors.Is(err, context.Canceled), errors.Is(err, context.DeadlineExceeded):
-		return resp, err
+		resp.Errors = append(resp.Errors, err.Error())
+		return resp
 	case err != nil:
-		if sqlErr := rs.regulationPgError(err); sqlErr != nil {
-			return resp, sqlErr
+		if sqlErr := rs.createPgError(err); sqlErr != nil {
+			resp.Errors = append(resp.Errors, sqlErr.Error())
+			return resp
 		}
+		resp.Errors = append(resp.Errors, err.Error())
 		log.Printf("cannot create regulation on database: %v\n", err)
-		return resp, errors.New("cannot create regulation on database")
+		return resp
 	}
-	resp.RegulationID = regulationID
-	return resp, nil
+	resp.ID = strconv.FormatUint(regulationID, 10)
+	return resp
 }
 
-func (rs *regulationStorage) regulationPgError(err error) error {
+func (rs *regulationStorage) createPgError(err error) error {
 	var pgErr *pgconn.PgError
 	if !errors.As(err, &pgErr) {
 		return nil

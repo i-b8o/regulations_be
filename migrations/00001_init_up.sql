@@ -40,6 +40,7 @@ CREATE TABLE paragraphs (
     id SERIAL PRIMARY KEY,
     paragraph_id INT NOT NULL CHECK (num >= 0),
     num INT NOT NULL CHECK (num >= 0),
+    is_html BOOLEAN NOT NULL,
     class TEXT,
     content TEXT NOT NULL CHECK (content != ''),
     c_id integer REFERENCES chapters
@@ -52,4 +53,5 @@ COMMIT;
 
 SELECT * FROM regulations;
 SELECT * FROM chapters;
-SELECT * FROM paragraphs;
+SELECT * FROM paragraphs WHERE is_html=TRUE;
+

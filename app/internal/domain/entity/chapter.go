@@ -5,4 +5,5 @@ type Chapter struct {
 	Name         string
 	Num          string
 	RegulationID uint64
+	Paragraphs   []Paragraph
 }

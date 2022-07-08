@@ -2,70 +2,38 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target 'all'.  Stop.
 
 # GNU Make 4.2.1
- 
 # Built for x86_64-pc-linux-gnu
- 
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
- 
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
- 
 # This is free software: you are free to change and redistribute it.
- 
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
- 
-# Make data base, printed on Thu Jul  7 21:06:11 2022
- 
+# Make data base, printed on Fri Jul  8 19:32:13 2022
 
 # Variables
- 
 
- 
 # 'override' directive
- 
 GNUMAKEFLAGS := 
- 
 # automatic
- 
 <D = $(patsubst %/,%,$(dir $<))
- 
 # automatic
- 
 ?F = $(notdir $?)
- 
 # environment
- 
 AUTH_IP = 188.93.210.165
- 
 # environment
- 
 DESKTOP_SESSION = ubuntu
- 
 # default
- 
 .SHELLFLAGS := -c
- 
 # environment
- 
 XDG_SESSION_CLASS = user
- 
 # environment
- 
 XDG_SESSION_TYPE = x11
- 
 # environment
- 
 VSCODE_LOG_NATIVE = false
- 
 # automatic
- 
 ?D = $(patsubst %/,%,$(dir $?))
- 
 # environment
- 
 IM_CONFIG_PHASE = 1
- 
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # environment
@@ -83,7 +51,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/share/code/code
 # environment
-JOURNAL_STREAM = 8:44427
+JOURNAL_STREAM = 8:44565
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -109,7 +77,7 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 1603
+MANAGERPID = 1577
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -131,7 +99,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-SESSION_MANAGER = local/kvo-System-Product-Name:@/tmp/.ICE-unix/1814,unix/kvo-System-Product-Name:/tmp/.ICE-unix/1814
+SESSION_MANAGER = local/kvo-System-Product-Name:@/tmp/.ICE-unix/1788,unix/kvo-System-Product-Name:/tmp/.ICE-unix/1788
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -145,7 +113,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 708fecd228ec4c00a1d2ac3ae2381463
+INVOCATION_ID = 272ff76f872645d797b8811e214a5dd9
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -155,7 +123,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 10262
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2704
 # automatic
 %F = $(notdir $%)
 # environment
@@ -169,7 +137,7 @@ PWD = /home/kvo/go/src/github.com/i-b8o/regulations_be
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1776
+SSH_AGENT_PID = 1750
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -204,7 +172,6 @@ GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 LC_TIME = ru_RU.UTF-8
 # default
 MAKE = $(MAKE_COMMAND)
- 
 # default
 MAKECMDGOALS := all
 # environment
@@ -216,13 +183,12 @@ APP_BIN = app/build/app
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-7944d85b-e54f-48cf-932f-49dcbb9b0b0c.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-fbcfb0b3-7695-486a-af47-9f024701a782.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
 USER = kvo
 # environment
- 
 LC_MONETARY = ru_RU.UTF-8
 # makefile
 .DEFAULT_GOAL := lint
@@ -258,8 +224,6 @@ MFLAGS = -pqrR
 GDK_BACKEND = x11
 # environment
 LC_PAPER = ru_RU.UTF-8
-# environment
-NO_AT_BRIDGE = 1
 # environment
 QT_ACCESSIBILITY = 1
 # default
@@ -303,9 +267,9 @@ LC_ADDRESS = ru_RU.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 10262
+VSCODE_PID = 2704
 # variable set hash-table stats:
-# Load=129/1024=13%, Rehash=0, Collisions=22/156=14%
+# Load=128/1024=12%, Rehash=0, Collisions=22/155=14%
 
 # Pattern-specific Variable Values
 
@@ -317,6 +281,7 @@ VSCODE_PID = 10262
 
 # 12 files, no impossibilities in 1 directories.
 
+ 
 # Implicit Rules
 
 # No implicit rules.
@@ -383,7 +348,6 @@ migrate:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 #  recipe to execute (from 'Makefile', line 18):
 	$(APP_BIN) migrate -version $(version)
 
@@ -421,6 +385,6 @@ lint:
 # strcache performance: lookups = 41 / hit rate = 36%
 # hash-table stats:
 # Load=26/8192=0%, Rehash=0, Collisions=1/41=2%
-# Finished Make data base on Thu Jul  7 21:06:11 2022
+# Finished Make data base on Fri Jul  8 19:32:14 2022
 
  

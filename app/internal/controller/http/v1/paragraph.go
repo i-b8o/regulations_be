@@ -3,10 +3,10 @@ package v1
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"prod_serv/internal/controller/http/dto"
 	"prod_serv/internal/domain/entity"
-	usecase_paragraph "prod_serv/internal/domain/usecase/paragraph"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -18,7 +18,7 @@ const (
 type ParagraphUsecase interface {
 	// ListAllRegulationNamesAndIDs(ctx context.Context) []*entity.RegulationNamesAndIDsView
 	// GetRegulationByID(ctx context.Context, id string) *entity.Regulation
-	CreateParagraphs(ctx context.Context, dto usecase_paragraph.CreateParagraphsInput) usecase_paragraph.CreateParagraphsOutput
+	CreateParagraphs(ctx context.Context, paragraphs []entity.Paragraph) entity.Response
 }
 
 type paragraphHandler struct {
@@ -34,41 +34,52 @@ func (h *paragraphHandler) Register(router *httprouter.Router) {
 }
 
 func (h *paragraphHandler) CreateParagraphs(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	var d dto.CreateParagraphsRequest
-	defer r.Body.Close()
-
+	// Set headers
 	w.Header().Set("Content-Type", "application/json")
 
+	// Input and Output
+	var d dto.CreateParagraphsRequest
+	var response entity.Response
+	var paragraphs []entity.Paragraph
+
+	// Get JSON request
 	if err := json.NewDecoder(r.Body).Decode(&d); err != nil {
-		resp := dto.ErrorResponse{Message: "Failed to decode"}
-		json.NewEncoder(w).Encode(resp)
+		fmt.Println(err)
+		response.Errors = append(response.Errors, err.Error())
+		json.NewEncoder(w).Encode(response)
 		return
 	}
+	defer r.Body.Close()
 
-	var usecaseIn usecase_paragraph.CreateParagraphsInput
-	// MAPPING dto.CreateParagraphsRequest --> usecase.CreateParagraphsInput
+	// MAPPING dto.CreateParagraphsRequest --> []entity.Paragraph
 	for _, p := range d.Paragraphs {
+		fmt.Println("a ", p.IsHTML)
 		// Validation
-		if err := p.Validate(); err != nil {
-			resp := dto.ErrorResponse{Message: err.Error()}
-			json.NewEncoder(w).Encode(resp)
+		if s, err := p.Validate(); err != nil {
+			fmt.Println("Warn", s, "Err", err)
+			if s != "" {
+				response.Warnings = append(response.Warnings, s)
+			}
+
+			response.Errors = append(response.Errors, err.Error())
+			json.NewEncoder(w).Encode(response)
 			return
 		}
 
 		paragraph := entity.Paragraph{
 			ID:        p.ParagraphID,
 			Num:       p.ParagraphOrderNum,
+			IsHTML:    p.IsHTML,
 			Class:     p.ParagraphClass,
 			Content:   p.ParagraphText,
 			ChapterID: p.ChapterID,
 		}
-		usecaseIn.Paragraphs = append(usecaseIn.Paragraphs, paragraph)
+		paragraphs = append(paragraphs, paragraph)
 	}
 
-	usecaseOutput := h.paragraphUsecase.CreateParagraphs(r.Context(), usecaseIn)
+	// Usecase
+	response = h.paragraphUsecase.CreateParagraphs(r.Context(), paragraphs)
 
-	resp := dto.CreateParagraphsResponse{
-		Message: usecaseOutput.Message,
-	}
-	json.NewEncoder(w).Encode(resp)
+	// Response
+	json.NewEncoder(w).Encode(response)
 }

@@ -5,21 +5,19 @@ import (
 	"encoding/json"
 	"net/http"
 	"prod_serv/internal/controller/http/dto"
-	usecase "prod_serv/internal/domain/usecase/regulation"
-	"strconv"
+	"prod_serv/internal/domain/entity"
 
 	"github.com/julienschmidt/httprouter"
 )
 
 const (
-	regulationCreate = "/r"
+	regulationCreate  = "/r"
+	regulationGetFull = "/rgf"
 )
 
 type RegulationUsecase interface {
-	// ListAllRegulationNamesAndIDs(ctx context.Context) []*entity.RegulationNamesAndIDsView
-	// GetRegulationByID(ctx context.Context, id string) *entity.Regulation
-
-	CreateRegulation(ctx context.Context, dto usecase.CreateRegulationInput) (usecase.CreateRegulationOutput, error)
+	CreateRegulation(ctx context.Context, regulation entity.Regulation) entity.Response
+	GetFullRegulationByID(ctx context.Context, regulation entity.Regulation) (entity.Response, entity.Regulation)
 }
 
 type regulationHandler struct {
@@ -32,37 +30,76 @@ func NewRegulationHandler(regulationUsecase RegulationUsecase) *regulationHandle
 
 func (h *regulationHandler) Register(router *httprouter.Router) {
 	router.POST(regulationCreate, h.CreateRegulation)
+	router.POST(regulationGetFull, h.GetFullRegulation)
 }
 
-// func (h *regulationHandler) ListAllRegulation(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-// 	// regulations := h.regulationUsecase.ListAllRegulationNamesAndIDs(context.Background())
-// 	w.Write([]byte("regulations"))
-// 	w.WriteHeader(http.StatusOK)
-// }
+func (h *regulationHandler) GetFullRegulation(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	// Set headers
+	w.Header().Set("Content-Type", "application/json")
+
+	// Input and Output
+	var input dto.GetFullRegulationRequestDTO
+	var out dto.GetFullRegulationResponseDTO
+
+	// Get JSON request
+	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+		out.Response.Errors = append(out.Response.Errors, err.Error())
+		json.NewEncoder(w).Encode(out)
+		return
+	}
+	defer r.Body.Close()
+
+	// MAPPING dto.CreateRegulationRequestDTO --> entity.Regulation
+	usecaseRegulation := entity.Regulation{
+		Id: input.RegulationID,
+	}
+
+	// Usecase
+	response, regulation := h.regulationUsecase.GetFullRegulationByID(r.Context(), usecaseRegulation)
+
+	// MAPPING dto.CreateRegulationRequestDTO --> entity.Regulation
+	out.Response = response
+	out.RegulationID = regulation.Id
+	out.Abbreviation = regulation.Abbreviation
+	out.RegulationName = regulation.Name
+
+	// Response
+	json.NewEncoder(w).Encode(out)
+
+}
 
 func (h *regulationHandler) CreateRegulation(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	var d dto.CreateRegulationRequestDTO
+	// Set headers
+	w.Header().Set("Content-Type", "application/json")
+
+	// Input and Output
+	var input dto.CreateRegulationRequestDTO
+	var response entity.Response
+
+	// Get JSON request
+	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+		response.Errors = append(response.Errors, err.Error())
+		json.NewEncoder(w).Encode(response)
+		return
+	}
 	defer r.Body.Close()
-	if err := json.NewDecoder(r.Body).Decode(&d); err != nil {
+
+	// Validation
+	if err := input.Validate(); err != nil {
+		response.Errors = append(response.Errors, err.Error())
+		json.NewEncoder(w).Encode(response)
 		return
 	}
 
-	// Validation
-	if err := d.Validate(); err != nil {
-		return
+	// MAPPING dto.CreateRegulationRequestDTO --> entity.Regulation
+	regulation := entity.Regulation{
+		Name:         input.RegulationName,
+		Abbreviation: input.Abbreviation,
 	}
-	// MAPPING dto.CreateRegulationRequestDTO --> usecase.CreateRegulationDTO
-	usecaseInputDTO := usecase.CreateRegulationInput{
-		RegulationName: d.RegulationName,
-		Abbreviation:   d.Abbreviation,
-	}
-	usecaseOutputDTO, err := h.regulationUsecase.CreateRegulation(r.Context(), usecaseInputDTO)
-	if err != nil {
-		return
-	}
-	respDTO := dto.CreateRegulationResponseDTO{
-		RegulationID: strconv.FormatUint(usecaseOutputDTO.RegulationID, 10),
-	}
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(respDTO)
+
+	// Usecase
+	response = h.regulationUsecase.CreateRegulation(r.Context(), regulation)
+
+	// Response
+	json.NewEncoder(w).Encode(response)
 }

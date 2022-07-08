@@ -8,14 +8,14 @@ type CreateChapterRequest struct {
 	ChapterNum   string `json:"chapter_num,omitempty"`
 }
 
-func (dto *CreateChapterRequest) Validate() error {
+func (dto *CreateChapterRequest) Validate() (string, error) {
 	if dto.ChapterName == "" {
-		return fmt.Errorf("missing chapter name")
+		return "", fmt.Errorf("missing chapter name")
 	}
 
-	return nil
-}
+	if dto.ChapterNum == "" {
+		return "missing chapter num", nil
+	}
 
-type CreateChapterResponse struct {
-	ChapterID string `json:"chapter_id"`
+	return "", nil
 }

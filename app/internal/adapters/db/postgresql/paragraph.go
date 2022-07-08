@@ -3,7 +3,7 @@ package postgressql
 import (
 	"context"
 	"fmt"
-	"prod_serv/internal/adapters/db/dto"
+	"prod_serv/internal/domain/entity"
 	client "prod_serv/pkg/client/postgresql"
 	"prod_serv/pkg/logging"
 )
@@ -16,23 +16,23 @@ func NewParagraphStorage(client client.PostgreSQLClient, logger *logging.Logger)
 	return &paragraphStorage{client: client}
 }
 
-func (cs *paragraphStorage) CreateAll(ctx context.Context, in dto.CreateParagraphsInput) dto.CreateParagraphsOutput {
+func (cs *paragraphStorage) CreateAll(ctx context.Context, paragraphs []entity.Paragraph) entity.Response {
 	vals := []interface{}{}
-	sql := `INSERT INTO paragraphs ("paragraph_id", "num","class","content","c_id") VALUES `
+	sql := `INSERT INTO paragraphs ("paragraph_id","num","is_html","class","content","c_id") VALUES `
 	i := 1
-	for _, p := range in.Paragraphs {
+	for _, p := range paragraphs {
 
-		sql += fmt.Sprintf("($%d, $%d, $%d, $%d, $%d),", i, i+1, i+2, i+3, i+4)
-		i = i + 5
-		vals = append(vals, p.ID, p.Num, p.Class, p.Content, p.ChapterID)
+		sql += fmt.Sprintf("($%d, $%d, $%d, $%d, $%d, $%d),", i, i+1, i+2, i+3, i+4, i+5)
+		i = i + 6
+		vals = append(vals, p.ID, p.Num, p.IsHTML, p.Class, p.Content, p.ChapterID)
 	}
 	sql = sql[:len(sql)-1]
-	out := dto.CreateParagraphsOutput{}
+	resp := entity.Response{}
 
 	if _, err := cs.client.Exec(ctx, sql, vals...); err != nil {
-		out.Message = "SQL exec error " + err.Error()
-		return out
+		resp.Errors = append(resp.Errors, err.Error())
+		return resp
 	}
 
-	return out
+	return resp
 }

@@ -23,8 +23,6 @@ type GetFullRegulationRequestDTO struct {
 }
 
 type GetFullRegulationResponseDTO struct {
-	Response       entity.Response `json:"response"`
-	RegulationID   uint64          `json:"regulation_id"`
-	RegulationName string          `json:"regulation_name"`
-	Abbreviation   string          `json:"abbreviation"`
+	Response   entity.Response   `json:"response"`
+	Regulation entity.Regulation `json:"regulation"`
 }

@@ -7,7 +7,7 @@ import (
 
 type RegulationStorage interface {
 	Create(ctx context.Context, params entity.Regulation) entity.Response
-	GetOne(ctx context.Context, regulation entity.Regulation) (entity.Response, entity.Regulation)
+	GetOne(ctx context.Context, regulationID uint64) (entity.Response, entity.Regulation)
 	// GetOne(id string) *entity.Regulation
 	// GetAll() []*entity.RegulationNamesAndIDsView
 }
@@ -24,8 +24,8 @@ func (s *regulationService) Create(ctx context.Context, regulation entity.Regula
 	return s.storage.Create(ctx, regulation)
 }
 
-func (s *regulationService) GetOne(ctx context.Context, regulation entity.Regulation) (entity.Response, entity.Regulation) {
-	return s.storage.GetOne(ctx, regulation)
+func (s *regulationService) GetOne(ctx context.Context, regulationID uint64) (entity.Response, entity.Regulation) {
+	return s.storage.GetOne(ctx, regulationID)
 }
 
 // func (s *regulationService) GetNamesAndIDsOfAllRegulations(ctx context.Context) []*entity.RegulationNamesAndIDsView {

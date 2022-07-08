@@ -53,5 +53,5 @@ COMMIT;
 
 SELECT * FROM regulations;
 SELECT * FROM chapters;
-SELECT * FROM paragraphs WHERE is_html=TRUE;
+SELECT * FROM paragraphs;
 

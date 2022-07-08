@@ -19,5 +19,4 @@ func NewChapterUsecase(regulationService ChapterService) *chapterUsecase {
 
 func (u chapterUsecase) CreateChapter(ctx context.Context, chapter entity.Chapter) entity.Response {
 	return u.regulationService.Create(ctx, chapter)
-
 }

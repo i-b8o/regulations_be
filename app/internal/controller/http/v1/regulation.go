@@ -17,7 +17,7 @@ const (
 
 type RegulationUsecase interface {
 	CreateRegulation(ctx context.Context, regulation entity.Regulation) entity.Response
-	GetFullRegulationByID(ctx context.Context, regulation entity.Regulation) (entity.Response, entity.Regulation)
+	GetFullRegulationByID(ctx context.Context, regulationID uint64) (entity.Response, entity.Regulation)
 }
 
 type regulationHandler struct {
@@ -49,20 +49,29 @@ func (h *regulationHandler) GetFullRegulation(w http.ResponseWriter, r *http.Req
 	}
 	defer r.Body.Close()
 
-	// MAPPING dto.CreateRegulationRequestDTO --> entity.Regulation
-	usecaseRegulation := entity.Regulation{
-		Id: input.RegulationID,
-	}
+	// MAPPING dto.CreateRegulationRequestDTO --> string
+	usecaseRegulationID := input.RegulationID
 
 	// Usecase
-	response, regulation := h.regulationUsecase.GetFullRegulationByID(r.Context(), usecaseRegulation)
+	response, regulation := h.regulationUsecase.GetFullRegulationByID(r.Context(), usecaseRegulationID)
 
-	// MAPPING dto.CreateRegulationRequestDTO --> entity.Regulation
+	// MAPPING entity.Regulation --> dto.GetFullRegulationResponseDTO
 	out.Response = response
-	out.RegulationID = regulation.Id
-	out.Abbreviation = regulation.Abbreviation
-	out.RegulationName = regulation.Name
-
+	out.Regulation = regulation
+	// out.Response = response
+	// out.RegulationID = regulation.Id
+	// out.Abbreviation = regulation.Abbreviation
+	// out.RegulationName = regulation.Name
+	// var chapters []dto.Chapter
+	// for _, c := range regulation.Chapters {
+	// 	var chapter dto.Chapter
+	// 	chapter.ID = c.ID
+	// 	chapter.Name = c.Name
+	// 	chapter.Num = c.Num
+	// 	// chapter.Paragraphs = c.Paragraphs
+	// 	chapters = append(chapters, chapter)
+	// }
+	// out.Chapters = chapters
 	// Response
 	json.NewEncoder(w).Encode(out)
 

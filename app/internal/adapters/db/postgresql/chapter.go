@@ -3,7 +3,6 @@ package postgressql
 import (
 	"context"
 	"errors"
-	"log"
 	"strconv"
 
 	"prod_serv/internal/domain/entity"
@@ -22,23 +21,33 @@ func NewChapterStorage(client client.PostgreSQLClient, logger *logging.Logger) *
 	return &chapterStorage{client: client}
 }
 
-func (cs *chapterStorage) GetOne(ctx context.Context, regulation entity.Regulation) (entity.Response, []entity.Chapter) {
-	const sql = `SELECT id,name,num FROM "chapters" WHERE r_id = $1 LIMIT 1`
-	row := cs.client.QueryRow(ctx, sql, regulation.Id)
-
+func (cs *chapterStorage) GetAllById(ctx context.Context, regulationID uint64) (entity.Response, []*entity.Chapter) {
+	const sql = `SELECT id,name,num FROM "chapters" WHERE r_id = $1`
 	var resp entity.Response
-	var chapter entity.Chapter
-	switch err := row.Scan(&chapter.ID, &chapter.Name, &chapter.Num); {
-	case errors.Is(err, context.Canceled), errors.Is(err, context.DeadlineExceeded):
-		resp.Errors = append(resp.Errors, err.Error())
-		return resp, chapter
-	case err != nil:
-		resp.Errors = append(resp.Errors, err.Error())
-		log.Printf("cannot get chapter from database: %v\n", err)
-		return resp, chapter
+	var chapters []*entity.Chapter
+
+	rows, err := cs.client.Query(ctx, sql, regulationID)
+	if err != nil {
+		resp.Errors = append(resp.Errors, "Chapter GetAllByID Query "+err.Error())
+		return resp, nil
 	}
 
-	return resp, chapter
+	defer rows.Close()
+
+	for rows.Next() {
+		chapter := &entity.Chapter{}
+		if err = rows.Scan(
+			&chapter.ID, &chapter.Name, &chapter.Num,
+		); err != nil {
+			resp.Errors = append(resp.Errors, "Chapter GetAllByID Next "+err.Error())
+			return resp, nil
+		}
+
+		chapters = append(chapters, chapter)
+	}
+
+	return resp, chapters
+
 }
 
 func (cs *chapterStorage) Create(ctx context.Context, chapter entity.Chapter) entity.Response {

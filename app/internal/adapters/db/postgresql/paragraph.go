@@ -16,7 +16,36 @@ func NewParagraphStorage(client client.PostgreSQLClient, logger *logging.Logger)
 	return &paragraphStorage{client: client}
 }
 
-func (cs *paragraphStorage) CreateAll(ctx context.Context, paragraphs []entity.Paragraph) entity.Response {
+func (ps *paragraphStorage) GetAllById(ctx context.Context, chapterID uint64) (entity.Response, []entity.Paragraph) {
+	const sql = `SELECT paragraph_id, num, is_html, class, content FROM "paragraphs" WHERE c_id = $1`
+	var resp entity.Response
+	var paragraphs []entity.Paragraph
+
+	rows, err := ps.client.Query(ctx, sql, chapterID)
+	if err != nil {
+		resp.Errors = append(resp.Errors, "Paragraph GetAllByID Query "+err.Error())
+		return resp, nil
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		paragraph := entity.Paragraph{}
+		if err = rows.Scan(
+			&paragraph.ID, &paragraph.Num, &paragraph.IsHTML, &paragraph.Class, &paragraph.Content,
+		); err != nil {
+			resp.Errors = append(resp.Errors, "Paragraph GetAllByID Next "+err.Error())
+			return resp, nil
+		}
+
+		paragraphs = append(paragraphs, paragraph)
+	}
+
+	return resp, paragraphs
+
+}
+
+func (ps *paragraphStorage) CreateAll(ctx context.Context, paragraphs []entity.Paragraph) entity.Response {
 	vals := []interface{}{}
 	sql := `INSERT INTO paragraphs ("paragraph_id","num","is_html","class","content","c_id") VALUES `
 	i := 1
@@ -29,7 +58,7 @@ func (cs *paragraphStorage) CreateAll(ctx context.Context, paragraphs []entity.P
 	sql = sql[:len(sql)-1]
 	resp := entity.Response{}
 
-	if _, err := cs.client.Exec(ctx, sql, vals...); err != nil {
+	if _, err := ps.client.Exec(ctx, sql, vals...); err != nil {
 		resp.Errors = append(resp.Errors, err.Error())
 		return resp
 	}

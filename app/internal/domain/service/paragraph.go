@@ -7,6 +7,7 @@ import (
 
 type ParagraphStorage interface {
 	CreateAll(ctx context.Context, paragraphs []entity.Paragraph) entity.Response
+	GetAllById(ctx context.Context, chapterID uint64) (entity.Response, []entity.Paragraph)
 }
 
 type paragraphService struct {
@@ -19,4 +20,8 @@ func NewParagraphService(storage ParagraphStorage) *paragraphService {
 
 func (s *paragraphService) CreateAll(ctx context.Context, paragraphs []entity.Paragraph) entity.Response {
 	return s.storage.CreateAll(ctx, paragraphs)
+}
+
+func (s *paragraphService) GetAllById(ctx context.Context, chapterID uint64) (entity.Response, []entity.Paragraph) {
+	return s.storage.GetAllById(ctx, chapterID)
 }

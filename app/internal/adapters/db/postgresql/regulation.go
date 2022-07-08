@@ -23,17 +23,18 @@ func NewRegulationStorage(client client.PostgreSQLClient, logger *logging.Logger
 	return &regulationStorage{client: client}
 }
 
-func (rs *regulationStorage) GetOne(ctx context.Context, regulation entity.Regulation) (entity.Response, entity.Regulation) {
+func (rs *regulationStorage) GetOne(ctx context.Context, regulationID uint64) (entity.Response, entity.Regulation) {
 	const sql = `SELECT name,abbreviation FROM "regulations" WHERE id = $1 LIMIT 1`
-	row := rs.client.QueryRow(ctx, sql, regulation.Id)
+	row := rs.client.QueryRow(ctx, sql, regulationID)
 
 	var resp entity.Response
+	var regulation entity.Regulation
 	switch err := row.Scan(&regulation.Name, &regulation.Abbreviation); {
 	case errors.Is(err, context.Canceled), errors.Is(err, context.DeadlineExceeded):
-		resp.Errors = append(resp.Errors, err.Error())
+		resp.Errors = append(resp.Errors, "Regulation GetOne Scan "+err.Error())
 		return resp, regulation
 	case err != nil:
-		resp.Errors = append(resp.Errors, err.Error())
+		resp.Errors = append(resp.Errors, "Regulation GetOne Scan "+err.Error())
 		log.Printf("cannot get regulation from database: %v\n", err)
 		return resp, regulation
 	}

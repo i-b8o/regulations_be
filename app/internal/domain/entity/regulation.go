@@ -8,7 +8,7 @@ type Regulation struct {
 	Abbreviation string
 	CreatedAt    time.Time
 	UpdatedAt    *time.Time
-	Chapters     []Chapter
+	Chapters     []*Chapter
 }
 
 // type RegulationNamesAndIDsView struct {

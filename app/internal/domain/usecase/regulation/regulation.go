@@ -60,9 +60,9 @@ func (u regulationUsecase) GetDartFullRegulationByID(ctx context.Context, regula
 	resp.Errors = append(resp.Errors, respErrors...)
 
 	dartClass := `
-	import '../paragraph/paragraph.dart';
-	import '../chapter/chapter.dart';
-
+	import 'paragraph.dart';
+	import 'chapter.dart';
+	
 	class Regulation {
 		static const int id = %d;
 		static const String name = "%s";
@@ -101,9 +101,8 @@ func (u regulationUsecase) chaptersDart(ctx context.Context, chapters []*entity.
 func paragraphsDart(paragraphs []entity.Paragraph) (dartParagraphsList string) {
 	for _, p := range paragraphs {
 		text := strings.Replace(p.Content, "\n", "", -1)
-
-		dartParagraphsList += fmt.Sprintf(`		Paragraph(id: %d, num: %d, isHTML: %t, content: "%s", chapterID: %d),
-		`, p.ID, p.Num, p.IsHTML, text, p.ChapterID)
+		dartParagraphsList += fmt.Sprintf(`		Paragraph(id: %d, num: %d, isHTML: %t, paragraphClass: "%s", content: "%s", chapterID: %d),
+		`, p.ID, p.Num, p.IsHTML, p.Class, text, p.ChapterID)
 	}
 	return dartParagraphsList
 }

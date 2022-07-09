@@ -27,11 +27,3 @@ func (s *regulationService) Create(ctx context.Context, regulation entity.Regula
 func (s *regulationService) GetOne(ctx context.Context, regulationID uint64) (entity.Response, entity.Regulation) {
 	return s.storage.GetOne(ctx, regulationID)
 }
-
-// func (s *regulationService) GetNamesAndIDsOfAllRegulations(ctx context.Context) []*entity.RegulationNamesAndIDsView {
-// 	return s.storage.GetAll()
-// }
-
-// func (s *regulationService) GetByID(ctx context.Context, id string) *entity.Regulation {
-// 	return s.storage.GetOne(id)
-// }

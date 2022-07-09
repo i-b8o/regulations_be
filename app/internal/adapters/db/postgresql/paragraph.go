@@ -17,7 +17,7 @@ func NewParagraphStorage(client client.PostgreSQLClient, logger *logging.Logger)
 }
 
 func (ps *paragraphStorage) GetAllById(ctx context.Context, chapterID uint64) (entity.Response, []entity.Paragraph) {
-	const sql = `SELECT paragraph_id, num, is_html, class, content FROM "paragraphs" WHERE c_id = $1`
+	const sql = `SELECT paragraph_id, num, is_html, class, content FROM "paragraphs" WHERE c_id = $1 ORDER BY num`
 	var resp entity.Response
 	var paragraphs []entity.Paragraph
 

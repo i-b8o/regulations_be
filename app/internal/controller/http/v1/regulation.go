@@ -3,7 +3,6 @@ package v1
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"prod_serv/internal/controller/http/dto"
 	"prod_serv/internal/domain/entity"
@@ -20,6 +19,7 @@ const (
 type RegulationUsecase interface {
 	CreateRegulation(ctx context.Context, regulation entity.Regulation) entity.Response
 	GetFullRegulationByID(ctx context.Context, regulationID uint64) (entity.Response, entity.Regulation)
+	GetDartFullRegulationByID(ctx context.Context, regulationID uint64) (entity.Response, string)
 }
 
 type regulationHandler struct {
@@ -56,27 +56,25 @@ func (h *regulationHandler) GetFullRegulationDart(w http.ResponseWriter, r *http
 	usecaseRegulationID := input.RegulationID
 
 	// Usecase
-	response, regulation := h.regulationUsecase.GetFullRegulationByID(r.Context(), usecaseRegulationID)
+	_, dartStr := h.regulationUsecase.GetDartFullRegulationByID(r.Context(), usecaseRegulationID)
 
 	// MAPPING entity.Regulation --> dto.GetFullRegulationResponseDTO
-	out.Response = response
 
-	start := `List<Chapter> allChapters = <Chapter>[`
-	str := `
-	`
+	// start := `List<Chapter> allChapters = <Chapter>[`
+	// str := `
+	// `
 
-	for _, chapter := range regulation.Chapters {
-		str += fmt.Sprintf(`Chapter(
-			ID: "%d";
-			Name: "%s";
-			Num: "%s";
-			`, chapter.ID, chapter.Name, chapter.Num)
-	}
+	// for _, chapter := range regulation.Chapters {
+	// 	str += fmt.Sprintf(`Chapter(
+	// 		ID: "%d";
+	// 		Name: "%s";
+	// 		Num: "%s";
+	// 		`, chapter.ID, chapter.Name, chapter.Num)
+	// }
 
-	dart := start + str
+	// dart := start + str
 
-	// json.NewEncoder(w).Encode(out)
-	w.Write([]byte(dart))
+	w.Write([]byte(dartStr))
 
 }
 

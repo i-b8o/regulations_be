@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jul 12 16:02:19 2022
+# Make data base, printed on Tue Jul 12 17:06:33 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/share/code/code
 # environment
-JOURNAL_STREAM = 8:44372
+JOURNAL_STREAM = 8:84198
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -77,7 +77,7 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 1515
+MANAGERPID = 1700
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -99,7 +99,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-SESSION_MANAGER = local/kvo-System-Product-Name:@/tmp/.ICE-unix/1727,unix/kvo-System-Product-Name:/tmp/.ICE-unix/1727
+SESSION_MANAGER = local/kvo-System-Product-Name:@/tmp/.ICE-unix/1911,unix/kvo-System-Product-Name:/tmp/.ICE-unix/1911
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -113,7 +113,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = e11749ecad3c47da975faa75c5d0fb10
+INVOCATION_ID = 4b8a18f430e544119b27739ec33c0236
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -123,7 +123,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 8121
+GIO_LAUNCHED_DESKTOP_FILE_PID = 15173
 # automatic
 %F = $(notdir $%)
 # environment
@@ -137,7 +137,7 @@ PWD = /home/kvo/go/src/github.com/i-b8o/regulations_be
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1690
+SSH_AGENT_PID = 1873
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -183,7 +183,7 @@ APP_BIN = app/build/app
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-052231f9-1e5f-430a-aec4-0a3bce102d3f.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-4ff75cba-3ac8-422c-8ffc-3733b8904f2b.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -267,7 +267,7 @@ LC_ADDRESS = ru_RU.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 8121
+VSCODE_PID = 15173
 # variable set hash-table stats:
 # Load=128/1024=12%, Rehash=0, Collisions=22/155=14%
 
@@ -281,21 +281,13 @@ VSCODE_PID = 8121
 
 # 12 files, no impossibilities in 1 directories.
 
- 
 # Implicit Rules
- 
 
- 
 # No implicit rules.
- 
 
- 
 # Files
- 
 
- 
 app/build/app:
- 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -349,6 +341,7 @@ swagger:
 build: clean app/build/app
 #  Implicit rule search has not been done.
 #  Modification time never checked.
+ 
 #  File has not been updated.
 
 migrate:
@@ -382,36 +375,23 @@ get:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 #  recipe to execute (from 'Makefile', line 32):
- 
 	curl -X POST localhost:10000/rgfdart -H "Content-Type: application/json" -d '{"regulation_id": 1}' -o regulation.dart
- 
 
 # files hash-table stats:
- 
 # Load=14/1024=1%, Rehash=0, Collisions=0/28=0%
 # VPATH Search Paths
- 
 
- 
 # No 'vpath' search paths.
- 
 
- 
 # No general ('VPATH' variable) search path.
- 
 
- 
 # strcache buffers: 1 (0) / strings = 27 / storage = 231 B / avg = 8 B
- 
 # current buf: size = 8162 B / used = 231 B / count = 27 / avg = 8 B
- 
 
- 
 # strcache performance: lookups = 43 / hit rate = 37%
 # hash-table stats:
 # Load=27/8192=0%, Rehash=0, Collisions=1/43=2%
-# Finished Make data base on Tue Jul 12 16:02:19 2022
+# Finished Make data base on Tue Jul 12 17:06:33 2022
 
  

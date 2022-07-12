@@ -91,7 +91,7 @@ func (u regulationUsecase) chaptersDart(ctx context.Context, chapters []*entity.
 			num = chapter.Num
 		}
 		name := strings.Replace(chapter.Name, "\n", "", -1)
-		temp := fmt.Sprintf(dartChapter, chapter.ID, name, strings.TrimSpace(num), chapter.OrderNum, dartPar)
+		temp := fmt.Sprintf(dartChapter, chapter.ID, name, num, chapter.OrderNum, dartPar)
 		dartChaptersString += temp
 
 	}

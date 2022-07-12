@@ -27,3 +27,6 @@ git:
 	git add .
 	git commit -a -m "$m"
 	git push -u origin master
+
+get:
+	curl -X POST localhost:10000/rgfdart -H "Content-Type: application/json" -d '{"regulation_id": 1}' -o regulation.dart

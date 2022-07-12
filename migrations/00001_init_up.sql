@@ -31,8 +31,8 @@ CREATE TABLE regulations (
 CREATE TABLE chapters (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL CHECK (NAME != ''),
+    order_num INT NOT NULL CHECK (order_num >= 1),
     num TEXT,
-
     r_id integer REFERENCES regulations
 );
 

@@ -3,6 +3,7 @@ package postgressql
 import (
 	"context"
 	"errors"
+	"fmt"
 	"strconv"
 
 	"prod_serv/internal/domain/entity"
@@ -22,7 +23,7 @@ func NewChapterStorage(client client.PostgreSQLClient, logger *logging.Logger) *
 }
 
 func (cs *chapterStorage) GetAllById(ctx context.Context, regulationID uint64) (entity.Response, []*entity.Chapter) {
-	const sql = `SELECT id,name,num FROM "chapters" WHERE r_id = $1`
+	const sql = `SELECT id,name,num,order_num FROM "chapters" WHERE r_id = $1 ORDER BY order_num`
 	var resp entity.Response
 	var chapters []*entity.Chapter
 
@@ -37,7 +38,7 @@ func (cs *chapterStorage) GetAllById(ctx context.Context, regulationID uint64) (
 	for rows.Next() {
 		chapter := &entity.Chapter{}
 		if err = rows.Scan(
-			&chapter.ID, &chapter.Name, &chapter.Num,
+			&chapter.ID, &chapter.Name, &chapter.Num, &chapter.OrderNum,
 		); err != nil {
 			resp.Errors = append(resp.Errors, "Chapter GetAllByID Next "+err.Error())
 			return resp, nil
@@ -51,9 +52,9 @@ func (cs *chapterStorage) GetAllById(ctx context.Context, regulationID uint64) (
 }
 
 func (cs *chapterStorage) Create(ctx context.Context, chapter entity.Chapter) entity.Response {
-	sql := `INSERT INTO chapters ("name", "num", "r_id") VALUES ($1,$2,$3) RETURNING "id"`
-
-	row := cs.client.QueryRow(ctx, sql, chapter.Name, chapter.Num, chapter.RegulationID)
+	sql := `INSERT INTO chapters ("name", "num", "order_num", "r_id") VALUES ($1,$2,$3,$4) RETURNING "id"`
+	fmt.Printf("order num %d", chapter.OrderNum)
+	row := cs.client.QueryRow(ctx, sql, chapter.Name, chapter.Num, chapter.OrderNum, chapter.RegulationID)
 	var chapterID uint64
 	resp := entity.Response{}
 	switch err := row.Scan(&chapterID); {

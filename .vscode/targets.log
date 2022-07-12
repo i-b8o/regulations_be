@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Jul  9 17:05:52 2022
+# Make data base, printed on Sun Jul 10 13:40:33 2022
 
 # Variables
 
@@ -51,7 +49,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/share/code/code
 # environment
-JOURNAL_STREAM = 8:44464
+JOURNAL_STREAM = 8:43653
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -77,7 +75,7 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 1541
+MANAGERPID = 1566
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -99,7 +97,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-SESSION_MANAGER = local/kvo-System-Product-Name:@/tmp/.ICE-unix/1751,unix/kvo-System-Product-Name:/tmp/.ICE-unix/1751
+SESSION_MANAGER = local/kvo-System-Product-Name:@/tmp/.ICE-unix/1777,unix/kvo-System-Product-Name:/tmp/.ICE-unix/1777
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -113,7 +111,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 467e8bcb9f044210861f2c87c159e21d
+INVOCATION_ID = b35cc8a104464e30b35a3fc37feea96b
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -123,7 +121,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 9913
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3460
 # automatic
 %F = $(notdir $%)
 # environment
@@ -137,7 +135,7 @@ PWD = /home/kvo/go/src/github.com/i-b8o/regulations_be
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1713
+SSH_AGENT_PID = 1740
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -183,7 +181,7 @@ APP_BIN = app/build/app
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-7252890e-a585-40d5-a511-670eca473c18.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-1ed1bd43-bce7-4fb2-99d5-b810e90cbb0f.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -267,7 +265,7 @@ LC_ADDRESS = ru_RU.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 9913
+VSCODE_PID = 3460
 # variable set hash-table stats:
 # Load=128/1024=12%, Rehash=0, Collisions=22/155=14%
 
@@ -281,7 +279,6 @@ VSCODE_PID = 9913
 
 # 12 files, no impossibilities in 1 directories.
 
- 
 # Implicit Rules
 
 # No implicit rules.
@@ -304,6 +301,9 @@ migrate.up:
 
 migrate.down:
 #  Implicit rule search has not been done.
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 21):
@@ -328,7 +328,7 @@ git:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-04 14:23:46.524354046
+#  Last modified 2022-07-09 21:54:30.850539116
 #  File has been updated.
 #  Successfully updated.
 
@@ -371,20 +371,27 @@ lint:
 #  recipe to execute (from 'Makefile', line 4):
 	golangci-lint run
 
+get:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 32):
+	curl -X POST localhost:10000/rgfdart -H "Content-Type: application/json" -d '{"regulation_id": 1}' -o regulation.dart
+
 # files hash-table stats:
-# Load=13/1024=1%, Rehash=0, Collisions=0/27=0%
+# Load=14/1024=1%, Rehash=0, Collisions=0/28=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 26 / storage = 227 B / avg = 8 B
-# current buf: size = 8162 B / used = 227 B / count = 26 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 27 / storage = 231 B / avg = 8 B
+# current buf: size = 8162 B / used = 231 B / count = 27 / avg = 8 B
 
-# strcache performance: lookups = 41 / hit rate = 36%
+# strcache performance: lookups = 43 / hit rate = 37%
 # hash-table stats:
-# Load=26/8192=0%, Rehash=0, Collisions=1/41=2%
-# Finished Make data base on Sat Jul  9 17:05:52 2022
+# Load=27/8192=0%, Rehash=0, Collisions=1/43=2%
+# Finished Make data base on Sun Jul 10 13:40:33 2022
 
  

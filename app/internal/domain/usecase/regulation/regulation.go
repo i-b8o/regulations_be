@@ -78,7 +78,7 @@ func (u regulationUsecase) GetDartFullRegulationByID(ctx context.Context, regula
 }
 
 func (u regulationUsecase) chaptersDart(ctx context.Context, chapters []*entity.Chapter) (dartChaptersString string) {
-	dartChapter := `Chapter(id: %d, name: "%s", num: "%s", paragraphs: [
+	dartChapter := `Chapter(id: %d, name: "%s", num: "%s", orderNum: %d , paragraphs: [
 		%s
 	]),`
 	for _, chapter := range chapters {
@@ -86,12 +86,12 @@ func (u regulationUsecase) chaptersDart(ctx context.Context, chapters []*entity.
 
 		dartPar := paragraphsDart(paragraphs)
 
-		num := "-"
+		num := ""
 		if len(chapter.Num) > 0 {
 			num = chapter.Num
 		}
 		name := strings.Replace(chapter.Name, "\n", "", -1)
-		temp := fmt.Sprintf(dartChapter, chapter.ID, name, num, dartPar)
+		temp := fmt.Sprintf(dartChapter, chapter.ID, name, strings.TrimSpace(num), chapter.OrderNum, dartPar)
 		dartChaptersString += temp
 
 	}

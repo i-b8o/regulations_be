@@ -63,6 +63,7 @@ func (h *chapterHandler) CreateChapter(w http.ResponseWriter, r *http.Request, p
 		Name:         d.ChapterName,
 		Num:          d.ChapterNum,
 		RegulationID: d.RegulationID,
+		OrderNum:     d.OrderNum,
 	}
 
 	// Usecase

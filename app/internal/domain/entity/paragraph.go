@@ -4,6 +4,7 @@ type Paragraph struct {
 	ID        uint64 `json:"id"`
 	Num       uint64 `json:"num"`
 	IsHTML    bool   `json:"is_html"`
+	IsTable   bool   `json:"is_table"`
 	Class     string `json:"class,omitempty"`
 	Content   string `json:"content,omitempty"`
 	ChapterID uint64 `json:"chapterid,omitempty"`

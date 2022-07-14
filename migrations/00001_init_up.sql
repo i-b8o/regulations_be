@@ -41,6 +41,7 @@ CREATE TABLE paragraphs (
     paragraph_id INT NOT NULL CHECK (num >= 0),
     num INT NOT NULL CHECK (num >= 0),
     is_html BOOLEAN NOT NULL,
+    is_table BOOLEAN NOT NULL,
     class TEXT,
     content TEXT NOT NULL CHECK (content != ''),
     c_id integer REFERENCES chapters

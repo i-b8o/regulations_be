@@ -10,6 +10,7 @@ type Paragraph struct {
 	ParagraphID       uint64 `json:"paragraph_id"`
 	ParagraphOrderNum uint64 `json:"paragraph_order_num"`
 	IsHTML            bool   `json:"isHTML"`
+	IsTable           bool   `json:"isTable"`
 	ParagraphClass    string `json:"paragraph_class,omitempty"`
 	ParagraphText     string `json:"paragraph_text"`
 	ChapterID         uint64 `json:"chapter_id"`

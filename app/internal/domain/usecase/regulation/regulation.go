@@ -101,8 +101,8 @@ func (u regulationUsecase) chaptersDart(ctx context.Context, chapters []*entity.
 func paragraphsDart(paragraphs []entity.Paragraph) (dartParagraphsList string) {
 	for _, p := range paragraphs {
 		text := strings.Replace(p.Content, "\n", "", -1)
-		dartParagraphsList += fmt.Sprintf(`		Paragraph(id: %d, num: %d, isHTML: %t, paragraphClass: "%s", content: "%s", chapterID: %d),
-		`, p.ID, p.Num, p.IsHTML, p.Class, text, p.ChapterID)
+		dartParagraphsList += fmt.Sprintf(`		Paragraph(id: %d, num: %d, isHTML: %t, isTable: %t, paragraphClass: "%s", content: "%s", chapterID: %d),
+		`, p.ID, p.Num, p.IsHTML, p.IsTable, p.Class, text, p.ChapterID)
 	}
 	return dartParagraphsList
 }

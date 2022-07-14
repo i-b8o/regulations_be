@@ -8,7 +8,7 @@
             "askForPassword": true,
             "driver": "PostgreSQL",
             "name": "ps",
-            "database": "regulation",
+            "database": "regulations",
             "username": "regulation_be"
         }
     ]

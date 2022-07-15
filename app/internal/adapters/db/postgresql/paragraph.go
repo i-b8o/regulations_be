@@ -17,7 +17,7 @@ func NewParagraphStorage(client client.PostgreSQLClient, logger *logging.Logger)
 }
 
 func (ps *paragraphStorage) GetAllById(ctx context.Context, chapterID uint64) (entity.Response, []entity.Paragraph) {
-	const sql = `SELECT paragraph_id, num, is_html, is_table, class, content, c_id FROM "paragraphs" WHERE c_id = $1 ORDER BY num`
+	const sql = `SELECT paragraph_id, num, is_html, is_nft, is_table, class, content, c_id FROM "paragraphs" WHERE c_id = $1 ORDER BY num`
 	var resp entity.Response
 	var paragraphs []entity.Paragraph
 
@@ -32,7 +32,7 @@ func (ps *paragraphStorage) GetAllById(ctx context.Context, chapterID uint64) (e
 	for rows.Next() {
 		paragraph := entity.Paragraph{}
 		if err = rows.Scan(
-			&paragraph.ID, &paragraph.Num, &paragraph.IsHTML, &paragraph.IsTable, &paragraph.Class, &paragraph.Content, &paragraph.ChapterID,
+			&paragraph.ID, &paragraph.Num, &paragraph.IsHTML, &paragraph.IsNFT, &paragraph.IsTable, &paragraph.Class, &paragraph.Content, &paragraph.ChapterID,
 		); err != nil {
 			resp.Errors = append(resp.Errors, "Paragraph GetAllByID Next "+err.Error())
 			return resp, nil
@@ -47,13 +47,13 @@ func (ps *paragraphStorage) GetAllById(ctx context.Context, chapterID uint64) (e
 
 func (ps *paragraphStorage) CreateAll(ctx context.Context, paragraphs []entity.Paragraph) entity.Response {
 	vals := []interface{}{}
-	sql := `INSERT INTO paragraphs ("paragraph_id","num","is_html","is_table","class","content","c_id") VALUES `
+	sql := `INSERT INTO paragraphs ("paragraph_id","num","is_html","is_table","is_nft","class","content","c_id") VALUES `
 	i := 1
 	for _, p := range paragraphs {
 
-		sql += fmt.Sprintf("($%d, $%d, $%d, $%d, $%d, $%d, $%d),", i, i+1, i+2, i+3, i+4, i+5, i+6)
-		i = i + 7
-		vals = append(vals, p.ID, p.Num, p.IsHTML, p.IsTable, p.Class, p.Content, p.ChapterID)
+		sql += fmt.Sprintf("($%d, $%d, $%d, $%d, $%d, $%d, $%d, $%d),", i, i+1, i+2, i+3, i+4, i+5, i+6, i+7)
+		i = i + 8
+		vals = append(vals, p.ID, p.Num, p.IsHTML, p.IsTable, p.IsNFT, p.Class, p.Content, p.ChapterID)
 	}
 	sql = sql[:len(sql)-1]
 	resp := entity.Response{}

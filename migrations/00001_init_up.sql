@@ -42,6 +42,7 @@ CREATE TABLE paragraphs (
     num INT NOT NULL CHECK (num >= 0),
     is_html BOOLEAN NOT NULL,
     is_table BOOLEAN NOT NULL,
+    is_nft BOOLEAN NOT NULL,
     class TEXT,
     content TEXT NOT NULL CHECK (content != ''),
     c_id integer REFERENCES chapters

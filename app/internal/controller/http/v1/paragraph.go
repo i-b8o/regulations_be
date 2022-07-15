@@ -71,6 +71,7 @@ func (h *paragraphHandler) CreateParagraphs(w http.ResponseWriter, r *http.Reque
 			Num:       p.ParagraphOrderNum,
 			IsHTML:    p.IsHTML,
 			IsTable:   p.IsTable,
+			IsNFT:     p.IsNFT,
 			Class:     p.ParagraphClass,
 			Content:   p.ParagraphText,
 			ChapterID: p.ChapterID,

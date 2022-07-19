@@ -28,5 +28,8 @@ git:
 	git commit -a -m "$m"
 	git push -u origin master
 
-get:
+get_reg:
 	curl -X POST localhost:10000/rgfdart -H "Content-Type: application/json" -d '{"regulation_id": 1}' -o regulation.dart
+
+get_links:
+	curl -X POST localhost:10000/lfdart -H "Content-Type: application/json" -d '{"regulation_id": 1}' -o alllinks.dart

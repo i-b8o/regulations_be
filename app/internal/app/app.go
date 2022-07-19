@@ -60,19 +60,23 @@ func NewApp(config *config.Config, logger *logging.Logger) (App, error) {
 		logger.Fatal(err)
 	}
 
+	linkAdapter := postgressql.NewLinkStorage(pgClient, logger)
+	linkService := service.NewLinkService(linkAdapter)
+	// linkUsecase := link_usecase.NewLinkUsecase(linkService)
+
 	chapterAdapter := postgressql.NewChapterStorage(pgClient, logger)
 	chapterService := service.NewChapterService(chapterAdapter)
-	chapterUsecase := chapter_usecase.NewChapterUsecase(chapterService)
+	chapterUsecase := chapter_usecase.NewChapterUsecase(chapterService, linkService)
 	chapterHandler := v1.NewChapterHandler(chapterUsecase)
 
 	paragraphAdapter := postgressql.NewParagraphStorage(pgClient, logger)
 	paragraphService := service.NewParagraphService(paragraphAdapter)
-	paragraphUsecase := paragraph_usecase.NewParagraphUsecase(paragraphService)
+	paragraphUsecase := paragraph_usecase.NewParagraphUsecase(paragraphService, linkService)
 	paragraphHandler := v1.NewParagraphHandler(paragraphUsecase)
 
 	regAdapter := postgressql.NewRegulationStorage(pgClient, logger)
 	regService := service.NewRegulationService(regAdapter)
-	regUsecase := regulation_usecase.NewRegulationUsecase(regService, chapterService, paragraphService)
+	regUsecase := regulation_usecase.NewRegulationUsecase(regService, chapterService, paragraphService, linkService)
 	regHandler := v1.NewRegulationHandler(regUsecase)
 
 	regHandler.Register(router)

@@ -7,7 +7,7 @@ type CreateParagraphsRequest struct {
 }
 
 type Paragraph struct {
-	ParagraphID       uint64 `json:"paragraph_id"`
+	ParagraphID       uint64 `json:"paragraph_id,omitempty"`
 	ParagraphOrderNum uint64 `json:"paragraph_order_num"`
 	IsHTML            bool   `json:"is_html"`
 	IsTable           bool   `json:"is_table"`

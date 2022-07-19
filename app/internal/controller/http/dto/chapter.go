@@ -3,6 +3,7 @@ package dto
 import "fmt"
 
 type CreateChapterRequest struct {
+	ChapterID    uint64 `json:"chapter_id,omitempty"`
 	RegulationID uint64 `json:"regulation_id"`
 	ChapterName  string `json:"chapter_name"`
 	ChapterNum   string `json:"chapter_num,omitempty"`

@@ -67,7 +67,6 @@ func (h *paragraphHandler) CreateParagraphs(w http.ResponseWriter, r *http.Reque
 		}
 
 		paragraph := entity.Paragraph{
-			ID:        p.ParagraphID,
 			Num:       p.ParagraphOrderNum,
 			IsHTML:    p.IsHTML,
 			IsTable:   p.IsTable,
@@ -75,6 +74,11 @@ func (h *paragraphHandler) CreateParagraphs(w http.ResponseWriter, r *http.Reque
 			Class:     p.ParagraphClass,
 			Content:   p.ParagraphText,
 			ChapterID: p.ChapterID,
+		}
+
+		if p.ParagraphID > 0 {
+			fmt.Println("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", p.ParagraphID)
+			paragraph.ID = p.ParagraphID
 		}
 		paragraphs = append(paragraphs, paragraph)
 	}

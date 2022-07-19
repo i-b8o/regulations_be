@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log"
 	"strconv"
 
 	"prod_serv/internal/domain/entity"
@@ -52,9 +53,10 @@ func (cs *chapterStorage) GetAllById(ctx context.Context, regulationID uint64) (
 }
 
 func (cs *chapterStorage) Create(ctx context.Context, chapter entity.Chapter) entity.Response {
-	sql := `INSERT INTO chapters ("name", "num", "order_num", "r_id") VALUES ($1,$2,$3,$4) RETURNING "id"`
+	sql := `INSERT INTO chapters ("name", "num", "order_num","r_id") VALUES ($1,$2,$3,$4) RETURNING "id"`
 	fmt.Printf("order num %d", chapter.OrderNum)
 	row := cs.client.QueryRow(ctx, sql, chapter.Name, chapter.Num, chapter.OrderNum, chapter.RegulationID)
+	fmt.Println("aaaaaaaaaaaaaa", chapter.Name, chapter.Num, chapter.OrderNum, chapter.RegulationID)
 	var chapterID uint64
 	resp := entity.Response{}
 	switch err := row.Scan(&chapterID); {
@@ -96,6 +98,17 @@ func (cs *chapterStorage) chapterPgError(err error) error {
 // 	return nil
 // }
 
-// func (cs *chapterStorage) GetOne(id string) *entity.Chapter {
-// 	return nil
-// }
+func (cs *chapterStorage) GetOrderNum(ctx context.Context, id uint64) (orderNum uint64, err error) {
+	const sql = `SELECT order_num FROM "chapters" WHERE id = $1 LIMIT 1`
+	row := cs.client.QueryRow(ctx, sql, id)
+
+	switch err := row.Scan(&orderNum); {
+	case errors.Is(err, context.Canceled), errors.Is(err, context.DeadlineExceeded):
+		return 0, err
+	case err != nil:
+		log.Printf("cannot get regulation from database: %v\n", err)
+		return 0, err
+	}
+
+	return orderNum, nil
+}

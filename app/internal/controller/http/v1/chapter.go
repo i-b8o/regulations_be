@@ -60,6 +60,7 @@ func (h *chapterHandler) CreateChapter(w http.ResponseWriter, r *http.Request, p
 
 	// MAPPING dto.CreateChapterRequestDTO --> entity.Chapter
 	chapter := entity.Chapter{
+		ID:           d.ChapterID,
 		Name:         d.ChapterName,
 		Num:          d.ChapterNum,
 		RegulationID: d.RegulationID,

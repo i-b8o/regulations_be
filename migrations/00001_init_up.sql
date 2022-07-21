@@ -39,6 +39,7 @@ CREATE TABLE chapters (
 
 CREATE TABLE paragraphs (
     id SERIAL PRIMARY KEY,
+    paragraph_id INT NOT NULL CHECK (paragraph_id >= 0),
     order_num INT NOT NULL CHECK (order_num >= 0),
     is_html BOOLEAN NOT NULL,
     is_table BOOLEAN NOT NULL,

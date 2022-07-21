@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jul 19 11:11:04 2022
+# Make data base, printed on Tue Jul 19 21:11:11 2022
 
 # Variables
 
@@ -47,7 +45,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/share/code/code
 # environment
-JOURNAL_STREAM = 8:44988
+JOURNAL_STREAM = 8:43903
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -69,7 +67,7 @@ VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
-MANAGERPID = 1482
+MANAGERPID = 1472
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -89,7 +87,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-SESSION_MANAGER = local/ib8o-System-Product-Name:@/tmp/.ICE-unix/1690,unix/ib8o-System-Product-Name:/tmp/.ICE-unix/1690
+SESSION_MANAGER = local/ib8o-System-Product-Name:@/tmp/.ICE-unix/1685,unix/ib8o-System-Product-Name:/tmp/.ICE-unix/1685
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -99,7 +97,7 @@ XDG_MENU_PREFIX = gnome-
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 84b1ecb03c634620b54af40d40d1b06a
+INVOCATION_ID = 2429d37beba44a18948b803966fcffdb
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -109,7 +107,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2112
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3528
 # automatic
 %F = $(notdir $%)
 # environment
@@ -119,7 +117,7 @@ PWD = /home/i-b8o/go/src/github.com/i-b8o/regulations_be
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1653
+SSH_AGENT_PID = 1648
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -233,7 +231,7 @@ LC_ADDRESS = ru_RU.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 2112
+VSCODE_PID = 3528
 # variable set hash-table stats:
 # Load=111/1024=11%, Rehash=0, Collisions=19/138=14%
 
@@ -282,6 +280,8 @@ all:
 #  File has not been updated.
 
  
+make: *** No rule to make target 'all'.  Stop.
+
 git:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -294,7 +294,7 @@ git:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-14 16:30:22.974848938
+#  Last modified 2022-07-19 12:15:13.998156367
 #  File has been updated.
 #  Successfully updated.
 
@@ -309,6 +309,13 @@ build: clean app/build/app
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+
+get_reg:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 32):
+	curl -X POST localhost:10000/rgfdart -H "Content-Type: application/json" -d '{"regulation_id": 1}' -o regulation.dart
 
 migrate:
 #  Implicit rule search has not been done.
@@ -330,6 +337,13 @@ clean:
 #  recipe to execute (from 'Makefile', line 12):
 	rm -rf ./app/build || true
 
+get_links:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 35):
+	curl -X POST localhost:10000/lfdart -H "Content-Type: application/json" -d '{"regulation_id": 1}' -o alllinks.dart
+
 lint:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -337,27 +351,20 @@ lint:
 #  recipe to execute (from 'Makefile', line 4):
 	golangci-lint run
 
-get:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 32):
-	curl -X POST localhost:10000/rgfdart -H "Content-Type: application/json" -d '{"regulation_id": 1}' -o regulation.dart
-
 # files hash-table stats:
-# Load=14/1024=1%, Rehash=0, Collisions=0/28=0%
+# Load=15/1024=1%, Rehash=0, Collisions=0/29=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 27 / storage = 231 B / avg = 8 B
-# current buf: size = 8162 B / used = 231 B / count = 27 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 28 / storage = 245 B / avg = 8 B
+# current buf: size = 8162 B / used = 245 B / count = 28 / avg = 8 B
 
-# strcache performance: lookups = 43 / hit rate = 37%
+# strcache performance: lookups = 45 / hit rate = 37%
 # hash-table stats:
-# Load=27/8192=0%, Rehash=0, Collisions=1/43=2%
-# Finished Make data base on Tue Jul 19 11:11:04 2022
+# Load=28/8192=0%, Rehash=0, Collisions=1/45=2%
+# Finished Make data base on Tue Jul 19 21:11:11 2022
 
  
